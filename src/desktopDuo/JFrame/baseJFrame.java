@@ -16,8 +16,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import libDuo.Dao.ICursDAO;
+import libDuo.Dao.IIdiomaDAO;
 import libDuo.implement.CursImpl;
+import libDuo.implement.IdiomaImpl;
 import libDuo.model.Curs;
+import libDuo.model.Idioma;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -212,25 +215,25 @@ public class baseJFrame extends JFrame {
 				i1=comboBox.getSelectedItem().toString();
 				i2=comboBox2.getSelectedItem().toString();
 				
-				ICursDAO icmanager = new CursImpl();
-				
+				ICursDAO icmanagerCurs = new CursImpl();
+				IIdiomaDAO icmanagerIdioma = new IdiomaImpl();
 				ArrayList<Curs> arrayListTotsElsCursos = new ArrayList<Curs>();
-				arrayListTotsElsCursos = recurllirTotsElsCursos(icmanager, arrayListTotsElsCursos);
+				arrayListTotsElsCursos = recurllirTotsElsCursos(icmanagerCurs, arrayListTotsElsCursos);
 				
 				boolean combinacio = recullirIdiomaDestiIdiomaOrigen(i1, i2, arrayListTotsElsCursos);
+				System.out.println(combinacio);
 				if(combinacio) {
 					list.add(i1+"-"+i2);
+					combinacio = false;
 				}
 				else {
 					btnCCurs.setEnabled(true);
 					
 					Curs curs = new Curs();
+					Idioma idiomaDesti = icmanagerIdioma.getIdiomaByName(i1);
+					Idioma idiomaOrigen = icmanagerIdioma.getIdiomaByName(i2);
 					
-					
-					icmanager.setIdiomaOrigen(i1, curs);
-					icmanager.setIdiomaDesti(i2, curs);
-					
-					btnCCurs.setEnabled(false);
+					icmanagerCurs.setNewCurs(idiomaOrigen,idiomaDesti, curs);
 				}
 			}
 		});
