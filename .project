@@ -3,6 +3,7 @@
 	<name>desktopDuo</name>
 	<comment></comment>
 	<projects>
+		<project>libDuo</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
