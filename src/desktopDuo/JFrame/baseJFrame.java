@@ -15,6 +15,10 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import libDuo.Dao.ICursDAO;
+import libDuo.implement.CursImpl;
+import libDuo.model.Curs;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -208,20 +212,47 @@ public class baseJFrame extends JFrame {
 				i1=comboBox.getSelectedItem().toString();
 				i2=comboBox2.getSelectedItem().toString();
 				
+				ICursDAO icmanager = new CursImpl();
 				
-				if((i1.equalsIgnoreCase("") && i2.equalsIgnoreCase("")) || i1.equalsIgnoreCase("") || i2.equalsIgnoreCase("")) {
-					JOptionPane.showMessageDialog(null, "Un camp dels idiomes es null");
-				}
-				else if(i1.equalsIgnoreCase(i2)) {
-					JOptionPane.showMessageDialog(null, "Els idiomes son iguals");
-					//combinacioPosible(i1, i2);
+				ArrayList<Curs> arrayListTotsElsCursos = new ArrayList<Curs>();
+				arrayListTotsElsCursos = recurllirTotsElsCursos(icmanager, arrayListTotsElsCursos);
+				
+				boolean combinacio = recullirIdiomaDestiIdiomaOrigen(i1, i2, arrayListTotsElsCursos);
+				if(combinacio) {
+					list.add(i1+"-"+i2);
 				}
 				else {
 					btnCCurs.setEnabled(true);
+					
+					Curs curs = new Curs();
+					
+					
+					icmanager.setIdiomaOrigen(i1, curs);
+					icmanager.setIdiomaDesti(i2, curs);
+					
+					btnCCurs.setEnabled(false);
 				}
-
-				
 			}
 		});
 	}
+	
+	public ArrayList<Curs> recurllirTotsElsCursos(ICursDAO icmanager, ArrayList<Curs> arrayListTotsElsCursos) {
+		arrayListTotsElsCursos = icmanager.getAllCursos();
+		
+		return arrayListTotsElsCursos;
+	}
+	
+	public boolean recullirIdiomaDestiIdiomaOrigen(String i1, String i2, ArrayList<Curs> arrayList) {
+		for (int i = 0; i < arrayList.size(); i++) {
+			System.out.println(arrayList.get(i));
+			if(arrayList.get(i).getIdiomaOrigen().getIdioma().equalsIgnoreCase(i1) 
+					&& arrayList.get(i).getIdiomaDesti().getIdioma().equalsIgnoreCase(i2)) {
+				return true;
+			}
+			
+		}
+		
+		return false;
+	}
+	
 }

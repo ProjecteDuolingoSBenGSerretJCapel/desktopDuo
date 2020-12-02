@@ -7,6 +7,5 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Capel/Desktop/project_duolingo/libDuo"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
