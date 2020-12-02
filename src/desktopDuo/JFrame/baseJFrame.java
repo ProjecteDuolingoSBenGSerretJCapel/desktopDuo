@@ -17,8 +17,12 @@ import javax.swing.border.LineBorder;
 
 import libDuo.Dao.ICursDAO;
 import libDuo.Dao.IIdiomaDAO;
+import libDuo.Dao.ITextIdiomes;
+import libDuo.implement.CategoriaImpl;
 import libDuo.implement.CursImpl;
 import libDuo.implement.IdiomaImpl;
+import libDuo.implement.TextIdiomasImpl;
+import libDuo.model.Categoria;
 import libDuo.model.Curs;
 import libDuo.model.Idioma;
 
@@ -26,6 +30,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 
 public class baseJFrame extends JFrame {
@@ -56,7 +61,7 @@ public class baseJFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public baseJFrame() {
+	public baseJFrame() {		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		 Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -98,11 +103,6 @@ public class baseJFrame extends JFrame {
 		
 		JMenuItem mntmItem4 = new JMenuItem("Item 4");
 		mnSubMenu.add(mntmItem4);
-		
-		
-		
-		
-		
 		
 	}
 	public void administrarCurs() {
@@ -227,16 +227,49 @@ public class baseJFrame extends JFrame {
 					combinacio = false;
 				}
 				else {
-					btnCCurs.setEnabled(true);
-					
 					Curs curs = new Curs();
 					Idioma idiomaDesti = icmanagerIdioma.getIdiomaByName(i1);
 					Idioma idiomaOrigen = icmanagerIdioma.getIdiomaByName(i2);
 					
-					icmanagerCurs.setNewCurs(idiomaOrigen,idiomaDesti, curs);
+					if(idiomaDesti != null && idiomaOrigen != null) {
+						icmanagerCurs.setNewCurs(idiomaOrigen,idiomaDesti, curs);
+						
+						btnCCurs.setEnabled(true);
+						
+						btnCCurs.addActionListener(new ActionListener() {
+							
+							@Override
+							public void actionPerformed(ActionEvent arg0) {
+								list.add(i1+"-"+i2);
+								btnCCurs.setEnabled(false);
+							}
+						});
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "ERROR EN LA BASE DE DATOS", "ERROR", JOptionPane.WARNING_MESSAGE);
+					}
+					combinacio = false;
+					
 				}
 			}
 		});
+		
+		/*
+		//per afegir categoria em fa falta en quina combinacio esta mirant el usuari per saber les seves categorias,
+		//un cop tingui les seves categorias ...
+		
+		//un cop tinguem la esctructura de la categoria sera copy past per afegir un exercici
+		 
+		
+		CategoriaImpl icmanagerCategoria = new CategoriaImpl();
+		ArrayList<Categoria> totesLesCategorias = icmanagerCategoria.getAllCategorias();
+		if(icmanagerCategoria.comprobarNovaCategoria("nom nova categoria", totesLesCategorias)) {
+			JOptionPane.showMessageDialog(null, "LA CATEGORIA JA EXISTEIX", "ERROR", JOptionPane.WARNING_MESSAGE);
+		}
+		else {
+			icmanagerCategoria.setNovaCategoria("nom nova categoria");
+		}
+		*/
 	}
 	
 	public ArrayList<Curs> recurllirTotsElsCursos(ICursDAO icmanager, ArrayList<Curs> arrayListTotsElsCursos) {
