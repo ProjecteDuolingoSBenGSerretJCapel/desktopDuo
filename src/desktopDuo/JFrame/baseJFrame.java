@@ -18,11 +18,17 @@ import javax.swing.border.LineBorder;
 import libDuo.Dao.ICategoriaDAO;
 import libDuo.Dao.ICursDAO;
 import libDuo.Dao.IIdiomaDAO;
+<<<<<<< HEAD
 import libDuo.Dao.INivellsDAO;
 import libDuo.implement.CategoriaImpl;
 import libDuo.implement.CursImpl;
 import libDuo.implement.IdiomaImpl;
 import libDuo.implement.NivellsImpl;
+=======
+import libDuo.implement.CategoriaImpl;
+import libDuo.implement.CursImpl;
+import libDuo.implement.IdiomaImpl;
+>>>>>>> bb3fc9e715330179145db77155ea4f4933b4d656
 import libDuo.model.Categoria;
 import libDuo.model.Curs;
 import libDuo.model.Idioma;
@@ -31,6 +37,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+<<<<<<< HEAD
+=======
+
+>>>>>>> bb3fc9e715330179145db77155ea4f4933b4d656
 
 public class baseJFrame extends JFrame {
 
