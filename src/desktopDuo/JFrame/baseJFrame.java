@@ -15,9 +15,15 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import libDuo.Dao.ICategoriaDAO;
 import libDuo.Dao.ICursDAO;
+import libDuo.Dao.IIdiomaDAO;
+import libDuo.implement.CategoriaImpl;
 import libDuo.implement.CursImpl;
+import libDuo.implement.IdiomaImpl;
+import libDuo.model.Categoria;
 import libDuo.model.Curs;
+import libDuo.model.Idioma;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -32,8 +38,11 @@ public class baseJFrame extends JFrame {
 	private ArrayList<String> aNomIdiomesOrigen;
 	
 	private Boolean combinacio;
-	List list;
+	JList list;
 
+	
+	Idioma idiomaDesti = new Idioma();
+	Idioma idiomaOrigen = new Idioma();
 	/**
 	 * Launch the application.
 	 */
@@ -53,7 +62,7 @@ public class baseJFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public baseJFrame() {
+	public baseJFrame() {		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		 Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -95,11 +104,6 @@ public class baseJFrame extends JFrame {
 		
 		JMenuItem mntmItem4 = new JMenuItem("Item 4");
 		mnSubMenu.add(mntmItem4);
-		
-		
-		
-		
-		
 		
 	}
 	public void administrarCurs() {
@@ -177,21 +181,28 @@ public class baseJFrame extends JFrame {
 		lblNivelesDeLa.setBounds(464, 126, 297, 15);
 		contentPane.add(lblNivelesDeLa);
 		
-		list = new List();
+		DefaultListModel defaultListModelCursos = new DefaultListModel<>();
+		list = new JList();
 		list.setBounds(31, 147, 139, 154);
 		contentPane.add(list);
 		
-		List list_1 = new List();
+		list.setModel(defaultListModelCursos);
+		
+		DefaultListModel defaultListModelCategoria = new DefaultListModel<>();
+		JList list_1 = new JList();
 		list_1.setBounds(255, 147, 153, 154);
 		contentPane.add(list_1);
 		
-		List list_2 = new List();
+		list_1.setModel(defaultListModelCategoria);
+		
+		JList list_2 = new JList();
 		list_2.setBounds(499, 147, 153, 154);
 		contentPane.add(list_2);
 		
 		JButton btnAfegirCategoria = new JButton("Afegir categoria");
 		btnAfegirCategoria.setBounds(255, 330, 153, 15);
 		contentPane.add(btnAfegirCategoria);
+		btnAfegirCategoria.setEnabled(false);
 		
 		JButton btnAfegirNivell = new JButton("Afegir nivell");
 		btnAfegirNivell.setBounds(499, 330, 117, 15);
@@ -205,6 +216,7 @@ public class baseJFrame extends JFrame {
 		btnNewButton_1.setBounds(33, 386, 700, 15);
 		contentPane.add(btnNewButton_1);
 		
+		ICursDAO icmanagerCurs = new CursImpl();
 		btnAFiltro.addActionListener(new ActionListener() {
 			
 			@Override
@@ -212,28 +224,91 @@ public class baseJFrame extends JFrame {
 				i1=comboBox.getSelectedItem().toString();
 				i2=comboBox2.getSelectedItem().toString();
 				
-				ICursDAO icmanager = new CursImpl();
-				
+				ICursDAO icmanagerCurs = new CursImpl();
+				IIdiomaDAO icmanagerIdioma = new IdiomaImpl();
 				ArrayList<Curs> arrayListTotsElsCursos = new ArrayList<Curs>();
-				arrayListTotsElsCursos = recurllirTotsElsCursos(icmanager, arrayListTotsElsCursos);
+				arrayListTotsElsCursos = recurllirTotsElsCursos(icmanagerCurs, arrayListTotsElsCursos);
 				
 				boolean combinacio = recullirIdiomaDestiIdiomaOrigen(i1, i2, arrayListTotsElsCursos);
+				defaultListModelCursos.removeAllElements();
 				if(combinacio) {
-					list.add(i1+"-"+i2);
-				}
-				else {
-					btnCCurs.setEnabled(true);
+					defaultListModelCursos.addElement(i1+"-"+i2);
 					
 					Curs curs = new Curs();
+					idiomaDesti = icmanagerIdioma.getIdiomaByName(i1);
+					idiomaOrigen = icmanagerIdioma.getIdiomaByName(i2);
+					
+					icmanagerCurs.setNewCurs(idiomaOrigen,idiomaDesti, curs);
+					
+					combinacio = false;
+				}
+				else {
+					Curs curs = new Curs();
+					idiomaDesti = icmanagerIdioma.getIdiomaByName(i1);
+					idiomaOrigen = icmanagerIdioma.getIdiomaByName(i2);
 					
 					
-					icmanager.setIdiomaOrigen(i1, curs);
-					icmanager.setIdiomaDesti(i2, curs);
+					if(idiomaDesti != null && idiomaOrigen != null) {						
+						btnCCurs.setEnabled(true);
+						
+						btnCCurs.addActionListener(new ActionListener() {
+							
+							@Override
+							public void actionPerformed(ActionEvent arg0) {
+								defaultListModelCursos.addElement(i1+"-"+i2);
+								icmanagerCurs.setNewCurs(idiomaOrigen,idiomaDesti, curs);
+								btnCCurs.setEnabled(false);
+							}
+						});
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "ERROR EN LA BASE DE DATOS", "ERROR", JOptionPane.WARNING_MESSAGE);
+					}
+					combinacio = false;
 					
-					btnCCurs.setEnabled(false);
 				}
 			}
 		});
+		ICategoriaDAO icmanagerCategoria = new CategoriaImpl();
+		list.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				btnAfegirCategoria.setEnabled(true);
+				
+				String[] idiomesPos = list.getSelectedValue().toString().split("-");
+				
+				
+				ArrayList<Categoria> arrayCategoriaCurs = new ArrayList<Categoria>();
+				
+				for (int i = 0; i < arrayCategoriaCurs.size(); i++) {
+					defaultListModelCursos.addElement(arrayCategoriaCurs.get(i).getTipusCategoria());
+				}
+				
+				btnAfegirCategoria.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						String seleccion = JOptionPane.showInputDialog(baseJFrame.this,"Nom nova categoria",JOptionPane.QUESTION_MESSAGE);
+						
+						long idIdiomaOrgien = idiomaOrigen.getIdIdioma();
+						long idIdiomaDesti = idiomaDesti.getIdIdioma();
+						
+						Curs curs = icmanagerCurs.getCursByIds(idIdiomaOrgien, idIdiomaDesti);
+						if(curs != null) {
+							icmanagerCategoria.setNovaCategoria(seleccion, curs);
+							defaultListModelCategoria.addElement(seleccion);
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "ERROR AMB EL CURS", "ERROR", JOptionPane.WARNING_MESSAGE);
+						}
+					}
+				});
+				
+			}
+		});
+
+
 	}
 	
 	public ArrayList<Curs> recurllirTotsElsCursos(ICursDAO icmanager, ArrayList<Curs> arrayListTotsElsCursos) {
