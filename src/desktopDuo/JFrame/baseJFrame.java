@@ -26,14 +26,11 @@ import libDuo.implement.NivellsImpl;
 import libDuo.model.Categoria;
 import libDuo.model.Curs;
 import libDuo.model.Idioma;
-import libDuo.model.Nivells;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
 
 public class baseJFrame extends JFrame {
 
