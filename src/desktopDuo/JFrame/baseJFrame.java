@@ -18,14 +18,17 @@ import javax.swing.border.LineBorder;
 import libDuo.Dao.ICategoriaDAO;
 import libDuo.Dao.ICursDAO;
 import libDuo.Dao.IIdiomaDAO;
+import libDuo.Dao.INivellsDAO;
 import libDuo.Dao.ITextIdiomes;
 import libDuo.implement.CategoriaImpl;
 import libDuo.implement.CursImpl;
 import libDuo.implement.IdiomaImpl;
+import libDuo.implement.NivellsImpl;
 import libDuo.implement.TextIdiomasImpl;
 import libDuo.model.Categoria;
 import libDuo.model.Curs;
 import libDuo.model.Idioma;
+import libDuo.model.Nivells;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -41,11 +44,14 @@ public class baseJFrame extends JFrame {
 	private ArrayList<String> aNomIdiomesOrigen;
 	
 	private Boolean combinacio;
-	JList list;
+	private JList list;
 
 	
-	Idioma idiomaDesti = new Idioma();
-	Idioma idiomaOrigen = new Idioma();
+	private Idioma idiomaDesti = new Idioma();
+	private Idioma idiomaOrigen = new Idioma();
+	
+	private Curs curs;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -198,9 +204,12 @@ public class baseJFrame extends JFrame {
 		
 		list_1.setModel(defaultListModelCategoria);
 		
+		DefaultListModel defaultListModelNivell = new DefaultListModel<>();
 		JList list_2 = new JList();
 		list_2.setBounds(499, 147, 153, 154);
 		contentPane.add(list_2);
+		
+		list_2.setModel(defaultListModelNivell);
 		
 		JButton btnAfegirCategoria = new JButton("Afegir categoria");
 		btnAfegirCategoria.setBounds(255, 330, 153, 15);
@@ -210,6 +219,7 @@ public class baseJFrame extends JFrame {
 		JButton btnAfegirNivell = new JButton("Afegir nivell");
 		btnAfegirNivell.setBounds(499, 330, 117, 15);
 		contentPane.add(btnAfegirNivell);
+		btnAfegirNivell.setEnabled(false);
 		
 		JButton btnNewButton = new JButton("AFEGIR PREGUNTA");
 		btnNewButton.setBounds(34, 357, 699, 17);
@@ -277,12 +287,16 @@ public class baseJFrame extends JFrame {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
+				long idIdiomaOrgien = idiomaOrigen.getIdIdioma();
+				long idIdiomaDesti = idiomaDesti.getIdIdioma();
+				
 				btnAfegirCategoria.setEnabled(true);
 				
 				String[] idiomesPos = list.getSelectedValue().toString().split("-");
 				
-				
 				ArrayList<Categoria> arrayCategoriaCurs = new ArrayList<Categoria>();
+				//ArrayList<Categoria> arrayCategoriaCurs = icmanagerCategoria.getAllCategoriesByIdiomaOrigen(icmanagerCurs.getCursByIds(idIdiomaOrgien, idIdiomaDesti));
 				
 				for (int i = 0; i < arrayCategoriaCurs.size(); i++) {
 					defaultListModelCursos.addElement(arrayCategoriaCurs.get(i).getTipusCategoria());
@@ -294,10 +308,7 @@ public class baseJFrame extends JFrame {
 					public void actionPerformed(ActionEvent arg0) {
 						String seleccion = JOptionPane.showInputDialog(baseJFrame.this,"Nom nova categoria",JOptionPane.QUESTION_MESSAGE);
 						
-						long idIdiomaOrgien = idiomaOrigen.getIdIdioma();
-						long idIdiomaDesti = idiomaDesti.getIdIdioma();
-						
-						Curs curs = icmanagerCurs.getCursByIds(idIdiomaOrgien, idIdiomaDesti);
+						curs = icmanagerCurs.getCursByIds(idIdiomaOrgien, idIdiomaDesti);
 						if(curs != null) {
 							icmanagerCategoria.setNovaCategoria(seleccion, curs);
 							defaultListModelCategoria.addElement(seleccion);
@@ -310,8 +321,33 @@ public class baseJFrame extends JFrame {
 				
 			}
 		});
-
-
+		
+		INivellsDAO icmanagerNivell = new NivellsImpl();
+		int numNivell = 0;
+		list_1.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				btnAfegirNivell.setEnabled(true);
+				btnAfegirNivell.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						String seleccion = JOptionPane.showInputDialog(baseJFrame.this,"Nom nova categoria",JOptionPane.QUESTION_MESSAGE);
+						
+						Categoria categoria = icmanagerCategoria.getCategoriaByIdCurs(curs.getIdCurs());
+						if(seleccion != null) {
+							icmanagerNivell.setNouNivell(seleccion, 0, categoria);
+							defaultListModelNivell.addElement(seleccion);
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "ERROR AMB EL CURS", "ERROR", JOptionPane.WARNING_MESSAGE);
+						}
+						
+					}
+				});
+			}
+		});
 	}
 	
 	public ArrayList<Curs> recurllirTotsElsCursos(ICursDAO icmanager, ArrayList<Curs> arrayListTotsElsCursos) {
