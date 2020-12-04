@@ -8,5 +8,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/Capel/Desktop/lipeRMI/lipermi-0.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Capel/Desktop/project_duolingo/desktopDuo/lipermi-0.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
