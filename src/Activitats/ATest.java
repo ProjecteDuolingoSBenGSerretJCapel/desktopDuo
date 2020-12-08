@@ -117,4 +117,24 @@ public class ATest {
 		panel.add(jbGuardar);
 		frame.setVisible(true);
 	}
+	
+	public String getEnunciat() {
+		return tfEnunciat.getText();
+	}
+	
+	public String getR1() {
+		return tfR1.getText();
+	}
+	
+	public String getR2() {
+		return tfR2.getText();
+	}
+	
+	public String getR3() {
+		return tfR3.getText();
+	}
+	
+	public String getRespostaCorrecte() {
+		return tfRespostaCorrecta.getText();
+	}
 }
