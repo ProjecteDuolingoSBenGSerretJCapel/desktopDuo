@@ -1,10 +1,5 @@
 package desktopDuo.JFrame;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -15,6 +10,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import Activitats.ATest;
 import libDuo.Dao.ICategoriaDAO;
 import libDuo.Dao.ICursDAO;
 import libDuo.Dao.IIdiomaDAO;
@@ -33,6 +29,7 @@ import libDuo.model.Categoria;
 import libDuo.model.Curs;
 import libDuo.model.Idioma;
 
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -41,7 +38,7 @@ import java.awt.event.MouseEvent;
 
 public class baseJFrame extends JFrame {
 
-	private JPanel contentPane;
+	private JPanel contentPane, panelAA;
 	private String i1,i2;
 	private ArrayList<String> aNomIdiomesOrigen;
 	
@@ -60,6 +57,7 @@ public class baseJFrame extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -100,13 +98,19 @@ public class baseJFrame extends JFrame {
 		mntmAdminCursos.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				//new adminCursos();
 				administrarCurs();
 			}
 		});
 		mnMenu.add(mntmAdminCursos);
 		
 		JMenuItem mntmItem2 = new JMenuItem("Item 2");
+		mntmItem2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				
+				afegirActivitat();
+			}
+		});
 		mnMenu.add(mntmItem2);
 		
 		JMenuItem mntmItem3 = new JMenuItem("Item 3");
@@ -117,6 +121,7 @@ public class baseJFrame extends JFrame {
 		
 		JMenuItem mntmItem4 = new JMenuItem("Item 4");
 		mnSubMenu.add(mntmItem4);
+		getContentPane().setLayout(null);
 		
 	}
 	public void administrarCurs() {
@@ -233,7 +238,7 @@ public class baseJFrame extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				afegirActivitats();
+				afegirActivitat();
 				
 			}
 		});
@@ -381,110 +386,125 @@ public class baseJFrame extends JFrame {
 		
 		return false;
 	}
-	
-	public void afegirActivitats() {
+	public void afegirActivitat() {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		afegirActivitat = new JFrame();
-		afegirActivitat.setBounds(0, 0, screenSize.width, screenSize.height);
-		afegirActivitat.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		afegirActivitat.getContentPane().setLayout(null);
+		panelAA = new JPanel();
+		panelAA.setBounds(0, 0,screenSize.width, screenSize.height);
+		panelAA.setLayout(new BorderLayout(0, 0));	
 		
-		JPanel panel = new JPanel();
-		panel.setBorder(new LineBorder(Color.BLACK));
-		panel.setBounds((screenSize.width/100)*30, 0, (screenSize.width/100)*70, screenSize.height);
-		afegirActivitat.getContentPane().add(panel);
-		panel.setLayout(null);
+		JPanel panel1 = new JPanel();
+		panel1.setBorder(new LineBorder(Color.BLACK));
+		panel1.setBounds(0, 0, (panelAA.getWidth()/100)*30, panelAA.getHeight());
 		
+
+		JPanel panel2 = new JPanel();
+		panel2.setBorder(new LineBorder(Color.BLACK));
+		panel2.setBounds((panelAA.getWidth()/100)*30, 0,  (panelAA.getWidth()/100)*70, panelAA.getHeight());
+		
+		int wPanelD=(int)(panelAA.getWidth()/100)*30;
+		
+		
+		int hPanelD=(int)(panel2.getHeight()/100);
+		
+
+
 		JButton Btest = new JButton("");
 		Btest.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"TestIMG.PNG", Btest));
-		
+		Btest.setBounds((wPanelD)+45, hPanelD*20, 150, 75);
 		Btest.addActionListener(new ActionListener() {
+			
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				ATest.initialize();
+				
 			}
 		});
-		int wPanelD=(screenSize.width/100)*30;
-		int hPanelD=(screenSize.height/100);
-		Btest.setBounds((wPanelD/100)*45, hPanelD*20, 150, 75);
 		
-		panel.add(Btest);
-		
+		panel2.add(Btest);
+
+
+		panel2.setLayout(null);
+
+
 		JButton Bcomplet = new JButton("");
-		Bcomplet.setBounds((wPanelD/100)*90+150, hPanelD*20,  150, 75);
-		Bcomplet.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"CompletarIMG.PNG", Btest));
-		panel.add(Bcomplet);
-		
+		Bcomplet.setBounds((wPanelD)+90+150, hPanelD*20,  150, 75);
+		Bcomplet.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"Completar1IMG.PNG", Bcomplet));
+		panel2.add(Bcomplet);
+
 		JButton Blisten = new JButton("");
-		Blisten.setBounds((wPanelD/100)*20, hPanelD*40,  150, 75);
-		Blisten.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"ListeningIMG.PNG", Btest));
-		panel.add(Blisten);
-		
+		Blisten.setBounds((wPanelD)+20, hPanelD*40,  150, 75);
+		Blisten.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"ListeningIMG.PNG", Blisten));
+		panel2.add(Blisten);
+
 		JButton Bordenar = new JButton("");
-		Bordenar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		Bordenar.setBounds((wPanelD/100)*50+150, hPanelD*40,  150, 75);
-		Bordenar.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"OrderIMG.PNG", Btest));
-		panel.add(Bordenar);
-		
+		Bordenar.setBounds((wPanelD)+50+150, hPanelD*40,  150, 75);
+		Bordenar.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"OrderIMG.PNG", Bordenar));
+		panel2.add(Bordenar);
+
 		JButton BOrdenList = new JButton("");
 		BOrdenList.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		BOrdenList.setBounds((wPanelD/100)*90+150*2, hPanelD*40,  150, 75);
-		BOrdenList.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"Order-ListeningIMG.PNG", Btest));
-		panel.add(BOrdenList);
-		
+		BOrdenList.setBounds((wPanelD)+90+150*2, hPanelD*40,  150, 75);
+		BOrdenList.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"Order-ListeningIMG.PNG", BOrdenList ));
+		panel2.add(BOrdenList);
+
 		JButton BRelation = new JButton("");
-	
+
 		BRelation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		BRelation.setBounds((wPanelD/100)*45, hPanelD*60 ,  150, 75);
-		BRelation.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"RelacionIMG.PNG", Btest));
-		panel.add(BRelation);
-		
+		BRelation.setBounds((wPanelD)+45, hPanelD*60 ,  150, 75);
+		BRelation.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"RelaciionIMG.PNG", BRelation));
+		panel2.add(BRelation);
+
 		JButton BWriter = new JButton("");
 		BWriter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		BWriter.setBounds((wPanelD/100)*90+150, hPanelD*60,  150, 75);
-		BWriter.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"WriteIMG.PNG", Btest));
-		panel.add(BWriter);
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new LineBorder(Color.BLACK));
-		panel_1.setBounds(0, 0, (screenSize.width/100)*30, screenSize.height);
-		afegirActivitat.getContentPane().add(panel_1);
-		panel_1.setLayout(null);
-		
+		BWriter.setBounds((wPanelD)+90+150, hPanelD*60,  150, 75);
+		BWriter.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"WriteIMG.PNG", BWriter));
+		panel2.add(BWriter);
+		panel1.setLayout(null);
+
+	
+	
+	
+	
+
+
+
 		JList list = new JList();
 		list.setBorder(new LineBorder(Color.GRAY));
 		list.setBounds(25, (screenSize.height/100)*20, (screenSize.width/100)*30-50, (screenSize.height/100)*50);
-		panel_1.add(list);
-		
+		panel1.add(list);
+
 		JLabel lblNewLabel = new JLabel("Idioma Origen - Desti");
 		lblNewLabel.setBounds((screenSize.width/100)*1, (screenSize.height/100)*5, 162, 15);
-		panel_1.add(lblNewLabel);
-		
+		panel1.add(lblNewLabel);
+
 		JLabel lblNivell = new JLabel("Nivell");
 		lblNivell.setBounds((screenSize.width/100)*1,(screenSize.height/100)*15, 70, 15);
-		panel_1.add(lblNivell);
-		
-		setVisible(true);
-		
+		panel1.add(lblNivell);
+		panelAA.add(panel1);
+		panelAA.add(panel2);
+		panel1.setVisible(true);
+		panel2.setVisible(true);
+		panelAA.setVisible(true);
+		setContentPane(panelAA);
+
 	}
 	public Icon setIcono(String url , JButton boton) {
-	
+
 		ImageIcon imagen = new ImageIcon(url);
 		ImageIcon icono= new ImageIcon(imagen.getImage().getScaledInstance(150, 75, Image.SCALE_DEFAULT));
 		return icono;
 	}
-	
-	
-	
+
+
+
 }
