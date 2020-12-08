@@ -1,6 +1,6 @@
 package desktopDuo.server;
 
-import lipermi.handler.CallHandler;
+//import lipermi.handler.CallHandler;
 
 public class ServidorDesktopDuo implements IServerRMI {
 
@@ -11,7 +11,7 @@ public class ServidorDesktopDuo implements IServerRMI {
 	
 	public ServidorDesktopDuo() {
 		try {
-			CallHandler callHandler = new CallHandler();
+			//CallHandler callHandler = new CallHandler();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

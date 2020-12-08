@@ -54,6 +54,8 @@ public class baseJFrame extends JFrame {
 	
 	private Curs curs;
 	
+	private JFrame afegirActivitat;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -223,9 +225,18 @@ public class baseJFrame extends JFrame {
 		contentPane.add(btnAfegirNivell);
 		btnAfegirNivell.setEnabled(false);
 		
-		JButton btnNewButton = new JButton("AFEGIR PREGUNTA");
-		btnNewButton.setBounds(34, 357, 699, 17);
-		contentPane.add(btnNewButton);
+		JButton btnAfegirExcercici = new JButton("AFEGIR PREGUNTA");
+		btnAfegirExcercici.setBounds(34, 357, 699, 17);
+		contentPane.add(btnAfegirExcercici);
+		
+		btnAfegirExcercici.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				afegirActivitats();
+				
+			}
+		});
 		
 		JButton btnNewButton_1 = new JButton("VISUALITZAR PREGUNTES");
 		btnNewButton_1.setBounds(33, 386, 700, 15);
@@ -339,7 +350,7 @@ public class baseJFrame extends JFrame {
 						
 						Categoria categoria = icmanagerCategoria.getCategoriaByIdCurs(curs.getIdCurs());
 						if(seleccion != null) {
-							icmanagerNivell.setNouNivell(seleccion, 0, categoria);
+							//icmanagerNivell.setNouNivell(seleccion, 0, categoria);
 							defaultListModelNivell.addElement(seleccion);
 						}
 						else {
@@ -370,5 +381,110 @@ public class baseJFrame extends JFrame {
 		
 		return false;
 	}
+	
+	public void afegirActivitats() {
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		afegirActivitat = new JFrame();
+		afegirActivitat.setBounds(0, 0, screenSize.width, screenSize.height);
+		afegirActivitat.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		afegirActivitat.getContentPane().setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new LineBorder(Color.BLACK));
+		panel.setBounds((screenSize.width/100)*30, 0, (screenSize.width/100)*70, screenSize.height);
+		afegirActivitat.getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		JButton Btest = new JButton("");
+		Btest.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"TestIMG.PNG", Btest));
+		
+		Btest.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		int wPanelD=(screenSize.width/100)*30;
+		int hPanelD=(screenSize.height/100);
+		Btest.setBounds((wPanelD/100)*45, hPanelD*20, 150, 75);
+		
+		panel.add(Btest);
+		
+		JButton Bcomplet = new JButton("");
+		Bcomplet.setBounds((wPanelD/100)*90+150, hPanelD*20,  150, 75);
+		Bcomplet.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"CompletarIMG.PNG", Btest));
+		panel.add(Bcomplet);
+		
+		JButton Blisten = new JButton("");
+		Blisten.setBounds((wPanelD/100)*20, hPanelD*40,  150, 75);
+		Blisten.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"ListeningIMG.PNG", Btest));
+		panel.add(Blisten);
+		
+		JButton Bordenar = new JButton("");
+		Bordenar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		Bordenar.setBounds((wPanelD/100)*50+150, hPanelD*40,  150, 75);
+		Bordenar.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"OrderIMG.PNG", Btest));
+		panel.add(Bordenar);
+		
+		JButton BOrdenList = new JButton("");
+		BOrdenList.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		BOrdenList.setBounds((wPanelD/100)*90+150*2, hPanelD*40,  150, 75);
+		BOrdenList.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"Order-ListeningIMG.PNG", Btest));
+		panel.add(BOrdenList);
+		
+		JButton BRelation = new JButton("");
+	
+		BRelation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		BRelation.setBounds((wPanelD/100)*45, hPanelD*60 ,  150, 75);
+		BRelation.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"RelacionIMG.PNG", Btest));
+		panel.add(BRelation);
+		
+		JButton BWriter = new JButton("");
+		BWriter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		BWriter.setBounds((wPanelD/100)*90+150, hPanelD*60,  150, 75);
+		BWriter.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"WriteIMG.PNG", Btest));
+		panel.add(BWriter);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new LineBorder(Color.BLACK));
+		panel_1.setBounds(0, 0, (screenSize.width/100)*30, screenSize.height);
+		afegirActivitat.getContentPane().add(panel_1);
+		panel_1.setLayout(null);
+		
+		JList list = new JList();
+		list.setBorder(new LineBorder(Color.GRAY));
+		list.setBounds(25, (screenSize.height/100)*20, (screenSize.width/100)*30-50, (screenSize.height/100)*50);
+		panel_1.add(list);
+		
+		JLabel lblNewLabel = new JLabel("Idioma Origen - Desti");
+		lblNewLabel.setBounds((screenSize.width/100)*1, (screenSize.height/100)*5, 162, 15);
+		panel_1.add(lblNewLabel);
+		
+		JLabel lblNivell = new JLabel("Nivell");
+		lblNivell.setBounds((screenSize.width/100)*1,(screenSize.height/100)*15, 70, 15);
+		panel_1.add(lblNivell);
+		
+		setVisible(true);
+		
+	}
+	public Icon setIcono(String url , JButton boton) {
+	
+		ImageIcon imagen = new ImageIcon(url);
+		ImageIcon icono= new ImageIcon(imagen.getImage().getScaledInstance(150, 75, Image.SCALE_DEFAULT));
+		return icono;
+	}
+	
+	
 	
 }
