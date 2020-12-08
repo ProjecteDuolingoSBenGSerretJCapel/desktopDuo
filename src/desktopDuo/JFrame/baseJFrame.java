@@ -108,7 +108,7 @@ public class baseJFrame extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				
-				afegirActivitat();
+				
 			}
 		});
 		mnMenu.add(mntmItem2);
