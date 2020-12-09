@@ -6,5 +6,5 @@ import libDuo.model.*;
 
 public interface IServerRMI {
 
-	public ArrayList<Curs> obtindreCursos();
+	public ArrayList<String> obtindreCursos();
 }
