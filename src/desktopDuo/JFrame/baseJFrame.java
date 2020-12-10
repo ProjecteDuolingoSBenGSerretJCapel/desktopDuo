@@ -289,6 +289,23 @@ public class baseJFrame extends JFrame {
 						defaultListModelCursos.addElement(i1+"-"+i2);
 					}else {
 						btnCCurs.setEnabled(true);
+						btnCCurs.addActionListener(new ActionListener() {
+							
+							@Override
+							public void actionPerformed(ActionEvent arg0) {
+								ICursDAO icmanagerCurs = new CursImpl();
+								IIdiomaDAO icmanagerIdioma = new IdiomaImpl();
+								defaultListModelCursos.addElement(i1+"-"+i2);
+								Curs curs = new Curs();
+								idiomaDesti = icmanagerIdioma.getIdiomaByName(i2);
+								idiomaOrigen = icmanagerIdioma.getIdiomaByName(i1);
+								
+								icmanagerCurs.setNewCurs(idiomaOrigen,idiomaDesti, curs);
+								btnCCurs.setEnabled(false);
+							}
+						});
+						
+						
 					}
 				}else if(!i1.equals(" ") && i2.equals(" ")) {
 					for (int i = 0; i < arrayListTotsElsCursos.size(); i++) {
@@ -307,54 +324,11 @@ public class baseJFrame extends JFrame {
 						}
 					}
 				}
-				/*
-				boolean combinacio = recullirIdiomaDestiIdiomaOrigen(i1, i2, arrayListTotsElsCursos);
 				
-				
-				
-				
-				if(combinacio) {
-					defaultListModelCursos.addElement(i1+"-"+i2);
-					
-					Curs curs = new Curs();
-					idiomaDesti = icmanagerIdioma.getIdiomaByName(i2);
-					idiomaOrigen = icmanagerIdioma.getIdiomaByName(i1);
-					
-					icmanagerCurs.setNewCurs(idiomaOrigen,idiomaDesti, curs);
-					
-					combinacio = false;
-				}
-				else {
-					Curs curs = new Curs();
-					idiomaDesti = icmanagerIdioma.getIdiomaByName(i2);
-					idiomaOrigen = icmanagerIdioma.getIdiomaByName(i1);
-					
-					
-					if(idiomaDesti != null && idiomaOrigen != null) {						
-						btnCCurs.setEnabled(true);
-						
-						
-					}
-					else {
-						JOptionPane.showMessageDialog(null, "ERROR EN LA BASE DE DATOS", "ERROR", JOptionPane.WARNING_MESSAGE);
-					}
-					combinacio = false;
-					
-				}
-				*/
 				
 			}
 		});
-		btnCCurs.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				ICursDAO icmanagerCurs = new CursImpl();
-				defaultListModelCursos.addElement(i1+"-"+i2);
-				icmanagerCurs.setNewCurs(idiomaOrigen,idiomaDesti, curs);
-				btnCCurs.setEnabled(false);
-			}
-		});
+		
 		ICategoriaDAO icmanagerCategoria = new CategoriaImpl();
 		list.addMouseListener(new MouseAdapter() {
 			
