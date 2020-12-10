@@ -245,6 +245,7 @@ public class baseJFrame extends JFrame {
 		JButton btnAfegirExcercici = new JButton("AFEGIR PREGUNTA");
 		btnAfegirExcercici.setBounds(34, 357, 699, 17);
 		contentPane.add(btnAfegirExcercici);
+		btnAfegirExcercici.setEnabled(false);
 		
 		btnAfegirExcercici.addActionListener(new ActionListener() {
 			
@@ -360,9 +361,11 @@ public class baseJFrame extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				btnAfegirNivell.setEnabled(true);
 				btnAfegirNivell.addActionListener(new ActionListener() {
+				
 					
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
+						
 						String seleccion = JOptionPane.showInputDialog(baseJFrame.this,"Nom nova categoria",JOptionPane.QUESTION_MESSAGE);
 						
 						Categoria categoria = icmanagerCategoria.getCategoriaByIdCurs(curs.getIdCurs());
@@ -377,6 +380,15 @@ public class baseJFrame extends JFrame {
 					}
 				});
 			}
+		});
+		
+		list_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				btnAfegirExcercici.setEnabled(true);
+				
+			}
+				
 		});
 	}
 	
