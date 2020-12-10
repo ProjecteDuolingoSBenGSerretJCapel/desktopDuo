@@ -268,6 +268,7 @@ public class baseJFrame extends JFrame {
 				i1=comboBox.getSelectedItem().toString();
 				i2=comboBox2.getSelectedItem().toString();
 				
+				
 				ICursDAO icmanagerCurs = new CursImpl();
 				IIdiomaDAO icmanagerIdioma = new IdiomaImpl();
 				ArrayList<Curs> arrayListTotsElsCursos = new ArrayList<Curs>();
@@ -275,6 +276,13 @@ public class baseJFrame extends JFrame {
 				
 				boolean combinacio = recullirIdiomaDestiIdiomaOrigen(i1, i2, arrayListTotsElsCursos);
 				defaultListModelCursos.removeAllElements();
+				defaultListModelCategoria.removeAllElements();
+				defaultListModelNivell.removeAllElements();
+				
+				btnAfegirExcercici.setEnabled(false);
+				btnAfegirNivell.setEnabled(false);
+				btnAfegirCategoria.setEnabled(false);
+				list_2.removeAll();
 				if(combinacio) {
 					defaultListModelCursos.addElement(i1+"-"+i2);
 					
