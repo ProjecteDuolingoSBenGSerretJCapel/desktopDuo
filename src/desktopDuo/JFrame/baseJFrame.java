@@ -427,7 +427,7 @@ public class baseJFrame extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				initialize();
+				ATest.initialize();
 			}
 		});
 		
@@ -509,101 +509,7 @@ public class baseJFrame extends JFrame {
 		return icono;
 	}
 	
-	public static void initialize() {
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		frame = new JFrame();
-		frame.setBounds( 10, 10 , (int)screenSize.getWidth()-100, (int)screenSize.getHeight()-100);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		JPanel panel = new JPanel();
-		frame.getContentPane().add(panel, BorderLayout.CENTER);
-		panel.setLayout(null);
-
-		Toolkit icona = Toolkit.getDefaultToolkit();
-		Image logo = icona.getImage("imgs"+File.separator+"Logo.png");
-		frame.setIconImage(new ImageIcon (logo).getImage());
-
-		JLabel enunciat = new JLabel("Enunciat:");
-		enunciat.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		enunciat.setBounds(33, 80, 123, 32);
-		panel.add(enunciat);
-
-		JLabel lbR1 = new JLabel("Resposta 1:");
-		lbR1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lbR1.setBounds(33, 159, 132, 32);
-		panel.add(lbR1);
-
-		tfEnunciat = new JTextField();
-		tfEnunciat.setBounds(175, 88, 448, 20);
-		panel.add(tfEnunciat);
-		tfEnunciat.setColumns(10);
-		
-		tfR1 = new JTextField();
-		tfR1.setColumns(10);
-		tfR1.setBounds(175, 167, 448, 20);
-		panel.add(tfR1);
-		
-		JLabel lbR2 = new JLabel("Resposta 2:");
-		lbR2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lbR2.setBounds(33, 247, 132, 32);
-		panel.add(lbR2);
-		
-		JLabel lbR3 = new JLabel("Resposta 3:");
-		lbR3.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lbR3.setBounds(33, 338, 132, 32);
-		panel.add(lbR3);
-		
-		JLabel lbRCorrecta = new JLabel("Resposta Correcta:");
-		lbRCorrecta.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lbRCorrecta.setBounds(33, 428, 132, 32);
-		panel.add(lbRCorrecta);
-		
-		tfR2 = new JTextField();
-		tfR2.setColumns(10);
-		tfR2.setBounds(175, 255, 448, 20);
-		panel.add(tfR2);
-		
-		tfR3 = new JTextField();
-		tfR3.setColumns(10);
-		tfR3.setBounds(175, 346, 448, 20);
-		panel.add(tfR3);
-		
-		tfRespostaCorrecta = new JTextField();
-		tfRespostaCorrecta.setColumns(10);
-		tfRespostaCorrecta.setBounds(175, 436, 448, 20);
-		panel.add(tfRespostaCorrecta);
-		
-		JButton jbGuardar = new JButton("Guardar");
-		jbGuardar.setBounds(33, 490, 238, 43);
-		panel.add(jbGuardar);
-		ArrayList<Exercici> arrayExercicis = new ArrayList<Exercici>();
-		jbGuardar.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				IExercici icmanagerJson = new ExerciciImpl();
-				
-				String ruta = "recursos/fitcher/exercicis.json";
-				File fileJson = icmanagerJson.llegirFicherJson(ruta);
-				
-				Exercici ex = icmanagerJson.setNouTipus(arrayExercicis,"test", tfEnunciat.getText(), tfR1.getText(), tfR2.getText(), tfR3.getText(), tfRespostaCorrecta.getText());
-				
-				String jsonString = icmanagerJson.getJsonString(fileJson, arrayExercicis);
-				icmanagerJson.escriureFicherJson(fileJson, jsonString);
-				
-				/*
-				try {
-					icmanagerJson.llegirJson(fileJson);
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				*/
-			}
-		});
-		frame.setVisible(true);
-	}
+	
 
 
 

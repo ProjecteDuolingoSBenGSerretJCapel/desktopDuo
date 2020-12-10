@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,8 +13,15 @@ import java.awt.Font;
 import java.awt.Image;
 
 import javax.swing.JTextField;
+
+import libDuo.Dao.IExercici;
+import libDuo.implement.ExerciciImpl;
+import libDuo.model.Exercici;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ATest {
 
@@ -47,12 +55,13 @@ public class ATest {
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @wbp.parser.entryPoint
 	 */
 	public static void initialize() {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		frame = new JFrame();
-		frame.setBounds( 10, 10 , (int)screenSize.getWidth()-100, (int)screenSize.getHeight()-100);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds( 10, 10 , (int)screenSize.getWidth()/2, (int)screenSize.getHeight()-150);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
@@ -73,13 +82,13 @@ public class ATest {
 		panel.add(lbR1);
 
 		tfEnunciat = new JTextField();
-		tfEnunciat.setBounds(175, 88, 448, 20);
+		tfEnunciat.setBounds(198, 88, 448, 20);
 		panel.add(tfEnunciat);
 		tfEnunciat.setColumns(10);
 		
 		tfR1 = new JTextField();
 		tfR1.setColumns(10);
-		tfR1.setBounds(175, 167, 448, 20);
+		tfR1.setBounds(198, 167, 448, 20);
 		panel.add(tfR1);
 		
 		JLabel lbR2 = new JLabel("Resposta 2:");
@@ -99,23 +108,52 @@ public class ATest {
 		
 		tfR2 = new JTextField();
 		tfR2.setColumns(10);
-		tfR2.setBounds(175, 255, 448, 20);
+		tfR2.setBounds(198, 255, 448, 20);
 		panel.add(tfR2);
 		
 		tfR3 = new JTextField();
 		tfR3.setColumns(10);
-		tfR3.setBounds(175, 346, 448, 20);
+		tfR3.setBounds(198, 346, 448, 20);
 		panel.add(tfR3);
 		
 		tfRespostaCorrecta = new JTextField();
 		tfRespostaCorrecta.setColumns(10);
-		tfRespostaCorrecta.setBounds(175, 436, 448, 20);
+		tfRespostaCorrecta.setBounds(198, 436, 448, 20);
 		panel.add(tfRespostaCorrecta);
-		
+		ArrayList<Exercici> arrayExercicis = new ArrayList<Exercici>();
 		JButton jbGuardar = new JButton("Guardar");
+		jbGuardar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				IExercici icmanagerJson = new ExerciciImpl();
+				
+				String ruta = "recursos"+File.separator+"fitcher"+File.separator+"exercicis.json";
+				File fileJson = icmanagerJson.llegirFicherJson(ruta);
+				
+				Exercici ex = icmanagerJson.setNouTipus(arrayExercicis,"test", tfEnunciat.getText(), tfR1.getText(), tfR2.getText(), tfR3.getText(), tfRespostaCorrecta.getText());
+				
+				String jsonString = icmanagerJson.getJsonString(fileJson, arrayExercicis);
+				icmanagerJson.escriureFicherJson(fileJson, jsonString);
+				
+				/*
+				try {
+					icmanagerJson.llegirJson(fileJson);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				*/
+				
+				frame.dispose();
+			}
+		});
+	
 		jbGuardar.setBounds(33, 490, 238, 43);
 		panel.add(jbGuardar);
 		frame.setVisible(true);
+		
 	}
 	
 	public String getEnunciat() {
