@@ -142,7 +142,7 @@ public class baseJFrame extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));	
 		
 		setContentPane(contentPane);
-		JLabel lblNewLabel = new JLabel("Cursos existents (filtrar por origen i/o desti");
+		JLabel lblNewLabel = new JLabel("Cursos existents (filtrar por origen i/o desti)");
 		lblNewLabel.setBounds(43, 0, 470, 15);
 		
 		JPanel panel = new JPanel();
@@ -163,7 +163,7 @@ public class baseJFrame extends JFrame {
 		panel.add(comboBox);
 		
 		
-		JLabel lblIdiomaDe = new JLabel("Idioma de destí");
+		JLabel lblIdiomaDe = new JLabel("Idioma de desti");
 		lblIdiomaDe.setBounds(226, 22, 153, 15);
 		panel.add(lblIdiomaDe);
 		
@@ -289,21 +289,6 @@ public class baseJFrame extends JFrame {
 						defaultListModelCursos.addElement(i1+"-"+i2);
 					}else {
 						btnCCurs.setEnabled(true);
-						btnCCurs.addActionListener(new ActionListener() {
-							
-							@Override
-							public void actionPerformed(ActionEvent arg0) {
-								ICursDAO icmanagerCurs = new CursImpl();
-								IIdiomaDAO icmanagerIdioma = new IdiomaImpl();
-								defaultListModelCursos.addElement(i1+"-"+i2);
-								Curs curs = new Curs();
-								idiomaDesti = icmanagerIdioma.getIdiomaByName(i2);
-								idiomaOrigen = icmanagerIdioma.getIdiomaByName(i1);
-								
-								icmanagerCurs.setNewCurs(idiomaOrigen,idiomaDesti, curs);
-								btnCCurs.setEnabled(false);
-							}
-						});
 						
 						
 					}
@@ -328,6 +313,23 @@ public class baseJFrame extends JFrame {
 				
 			}
 		});
+		
+		btnCCurs.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				ICursDAO icmanagerCurs = new CursImpl();
+				IIdiomaDAO icmanagerIdioma = new IdiomaImpl();
+				defaultListModelCursos.addElement(i1+"-"+i2);
+				Curs curs = new Curs();
+				idiomaDesti = icmanagerIdioma.getIdiomaByName(i2);
+				idiomaOrigen = icmanagerIdioma.getIdiomaByName(i1);
+				
+				icmanagerCurs.setNewCurs(idiomaOrigen,idiomaDesti, curs);
+				btnCCurs.setEnabled(false);
+			}
+		});
+		
 		
 		ICategoriaDAO icmanagerCategoria = new CategoriaImpl();
 		list.addMouseListener(new MouseAdapter() {
