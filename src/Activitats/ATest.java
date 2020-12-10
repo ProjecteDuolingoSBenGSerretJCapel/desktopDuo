@@ -60,7 +60,7 @@ public class ATest {
 	public static void initialize() {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		frame = new JFrame();
-		frame.setBounds( 10, 10 , (int)screenSize.getWidth()/2, (int)screenSize.getHeight()-150);
+		frame.setBounds( 10, 10 ,700, 600);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
