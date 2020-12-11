@@ -469,17 +469,17 @@ public class baseJFrame extends JFrame {
 
 		JButton Bcomplet = new JButton("");
 		Bcomplet.setBounds((wPanelD)+90+150, hPanelD*20,  150, 75);
-		Bcomplet.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"Completar1IMG.PNG", Bcomplet));
+		Bcomplet.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"Completar1IMG.png", Bcomplet));
 		panel2.add(Bcomplet);
 
 		JButton Blisten = new JButton("");
 		Blisten.setBounds((wPanelD)+20, hPanelD*40,  150, 75);
-		Blisten.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"ListeningIMG.PNG", Blisten));
+		Blisten.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"ListeningIMG.png", Blisten));
 		panel2.add(Blisten);
 
 		JButton Bordenar = new JButton("");
 		Bordenar.setBounds((wPanelD)+50+150, hPanelD*40,  150, 75);
-		Bordenar.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"OrderIMG.PNG", Bordenar));
+		Bordenar.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"OrderIMG.png", Bordenar));
 		panel2.add(Bordenar);
 
 		JButton BOrdenList = new JButton("");
@@ -489,7 +489,7 @@ public class baseJFrame extends JFrame {
 			}
 		});
 		BOrdenList.setBounds((wPanelD)+90+150*2, hPanelD*40,  150, 75);
-		BOrdenList.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"Order-ListeningIMG.PNG", BOrdenList ));
+		BOrdenList.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"Order-ListeningIMG.png", BOrdenList ));
 		panel2.add(BOrdenList);
 
 		JButton BRelation = new JButton("");
@@ -499,7 +499,7 @@ public class baseJFrame extends JFrame {
 			}
 		});
 		BRelation.setBounds((wPanelD)+45, hPanelD*60 ,  150, 75);
-		BRelation.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"RelaciionIMG.PNG", BRelation));
+		BRelation.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"RelaciionIMG.png", BRelation));
 		panel2.add(BRelation);
 
 		JButton BWriter = new JButton("");
@@ -508,7 +508,7 @@ public class baseJFrame extends JFrame {
 			}
 		});
 		BWriter.setBounds((wPanelD)+90+150, hPanelD*60,  150, 75);
-		BWriter.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"WriteIMG.PNG", BWriter));
+		BWriter.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"WriteIMG.png", BWriter));
 		panel2.add(BWriter);
 		panel1.setLayout(null);
 
