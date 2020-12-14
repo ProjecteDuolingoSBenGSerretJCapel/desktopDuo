@@ -55,6 +55,7 @@ public class baseJFrame extends JFrame {
 	private Idioma idiomaOrigen = new Idioma();
 	
 	private Curs cursActual;
+	private long idCursActual;
 	
 	private JFrame afegirActivitat;
 	
@@ -289,7 +290,7 @@ public class baseJFrame extends JFrame {
 				if(!i1.equals(" ") && !i2.equals(" ")) {
 					boolean combinacio = recullirIdiomaDestiIdiomaOrigen(i1, i2, arrayListTotsElsCursos);
 					if(combinacio) {
-						defaultListModelCursos.addElement(i1+"-"+i2);
+						defaultListModelCursos.addElement(i1+" - "+i2);
 					}else {
 						btnCCurs.setEnabled(true);
 						
@@ -299,7 +300,7 @@ public class baseJFrame extends JFrame {
 					for (int i = 0; i < arrayListTotsElsCursos.size(); i++) {
 						if(arrayListTotsElsCursos.get(i).getIdiomaOrigen().getIdioma().equalsIgnoreCase(i1)) {
 							defaultListModelCursos.addElement(arrayListTotsElsCursos.get(i).getIdiomaOrigen().getIdioma()+
-									"-"+arrayListTotsElsCursos.get(i).getIdiomaDesti().getIdioma());
+									" - "+arrayListTotsElsCursos.get(i).getIdiomaDesti().getIdioma());
 							
 						}
 					}
@@ -307,7 +308,7 @@ public class baseJFrame extends JFrame {
 					for (int i = 0; i < arrayListTotsElsCursos.size(); i++) {
 						if(arrayListTotsElsCursos.get(i).getIdiomaDesti().getIdioma().equalsIgnoreCase(i2)) {
 							defaultListModelCursos.addElement(arrayListTotsElsCursos.get(i).getIdiomaOrigen().getIdioma()+
-									"-"+arrayListTotsElsCursos.get(i).getIdiomaDesti().getIdioma());
+									" - "+arrayListTotsElsCursos.get(i).getIdiomaDesti().getIdioma());
 							
 						}
 					}
@@ -339,26 +340,38 @@ public class baseJFrame extends JFrame {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
 				ICursDAO icManagerCurs = new CursImpl();
-				long idIdiomaOrigen = idiomaOrigen.getIdIdioma();
-				long idIdiomaDesti = idiomaDesti.getIdIdioma();
-				cursActual = icManagerCurs.getCursByIds(idIdiomaDesti, idIdiomaOrigen);
+				//System.out.println(list.getSelectedValue().toString());
+				Curs cursActualLocal = icManagerCurs.getCursByNom(list.getSelectedValue().toString());
+				System.out.println(cursActualLocal.getNomCurs());
+				System.out.println(cursActualLocal.getIdCurs());
 				defaultListModelCategoria.removeAllElements();
 				
 				
 				btnAfegirCategoria.setEnabled(true);
 				
 				//String[] idiomesPos = list.getSelectedValue().toString().split("-");
-				
+				ArrayList<Categoria> arrayTotesCategories = new ArrayList<Categoria>();
+				arrayTotesCategories = icmanagerCategoria.getAllCategorias();
 				ArrayList<Categoria> arrayCategoriaCurs = new ArrayList<Categoria>();
-				arrayCategoriaCurs = (ArrayList<Categoria>) icmanagerCategoria.getAllCategoriesByCurs(cursActual);
-				//ArrayList<Categoria> arrayCategoriaCurs = icmanagerCategoria.getAllCategoriesByIdiomaOrigen(icmanagerCurs.getCursByIds(idIdiomaOrgien, idIdiomaDesti));
-				if(cursActual != null) {
-					for (int i = 0; i < arrayCategoriaCurs.size(); i++) {
-						System.out.println(arrayCategoriaCurs.get(i).getTipusCategoria());
+				
+				for (int i = 0; i < arrayTotesCategories.size(); i++) {
+					if(arrayTotesCategories.get(i).getCurs().getIdCurs()==cursActualLocal.getIdCurs()) {
+						arrayCategoriaCurs.add(arrayTotesCategories.get(i));
 						defaultListModelCategoria.addElement(arrayCategoriaCurs.get(i).getTipusCategoria());
 					}
 				}
+				
+				
+				//ArrayList<Categoria> arrayCategoriaCurs = icmanagerCategoria.getAllCategoriesByIdiomaOrigen(icmanagerCurs.getCursByIds(idIdiomaOrgien, idIdiomaDesti));
+//				if(cursActualLocal != null) {
+//					arrayCategoriaCurs = (ArrayList<Categoria>) icmanagerCategoria.getAllCategoriesByCurs(cursActualLocal);
+//					for (int i = 0; i < arrayCategoriaCurs.size(); i++) {
+//						System.out.println(arrayCategoriaCurs.get(i).getTipusCategoria());
+//						defaultListModelCategoria.addElement(arrayCategoriaCurs.get(i).getTipusCategoria());
+//					}
+//				}
 				
 				arrayCategoriaCurs.clear();
 				
@@ -430,6 +443,8 @@ public class baseJFrame extends JFrame {
 		
 		return arrayListTotsElsCursos;
 	}
+	
+	
 	
 	public boolean recullirIdiomaDestiIdiomaOrigen(String i1, String i2, ArrayList<Curs> arrayList) {
 		for (int i = 0; i < arrayList.size(); i++) {
