@@ -343,36 +343,18 @@ public class baseJFrame extends JFrame {
 				
 				ICursDAO icManagerCurs = new CursImpl();
 				//System.out.println(list.getSelectedValue().toString());
-				Curs cursActualLocal = icManagerCurs.getCursByNom(list.getSelectedValue().toString());
-				System.out.println(cursActualLocal.getNomCurs());
-				System.out.println(cursActualLocal.getIdCurs());
+				 cursActual = icManagerCurs.getCursByNom(list.getSelectedValue().toString());
+				System.out.println(cursActual.getNomCurs());
+				System.out.println(cursActual.getIdCurs());
 				defaultListModelCategoria.removeAllElements();
-				
-				
 				btnAfegirCategoria.setEnabled(true);
-				
-				//String[] idiomesPos = list.getSelectedValue().toString().split("-");
-				ArrayList<Categoria> arrayTotesCategories = new ArrayList<Categoria>();
-				arrayTotesCategories = icmanagerCategoria.getAllCategorias();
 				ArrayList<Categoria> arrayCategoriaCurs = new ArrayList<Categoria>();
-				
-				for (int i = 0; i < arrayTotesCategories.size(); i++) {
-					if(arrayTotesCategories.get(i).getCurs().getIdCurs()==cursActualLocal.getIdCurs()) {
-						arrayCategoriaCurs.add(arrayTotesCategories.get(i));
+				if(cursActual != null) {
+					arrayCategoriaCurs = (ArrayList<Categoria>) icmanagerCategoria.getAllCategoriesByCurs(cursActual);
+					for (int i = 0; i < arrayCategoriaCurs.size(); i++) {
 						defaultListModelCategoria.addElement(arrayCategoriaCurs.get(i).getTipusCategoria());
 					}
 				}
-				
-				
-				//ArrayList<Categoria> arrayCategoriaCurs = icmanagerCategoria.getAllCategoriesByIdiomaOrigen(icmanagerCurs.getCursByIds(idIdiomaOrgien, idIdiomaDesti));
-//				if(cursActualLocal != null) {
-//					arrayCategoriaCurs = (ArrayList<Categoria>) icmanagerCategoria.getAllCategoriesByCurs(cursActualLocal);
-//					for (int i = 0; i < arrayCategoriaCurs.size(); i++) {
-//						System.out.println(arrayCategoriaCurs.get(i).getTipusCategoria());
-//						defaultListModelCategoria.addElement(arrayCategoriaCurs.get(i).getTipusCategoria());
-//					}
-//				}
-				
 				arrayCategoriaCurs.clear();
 				
 				
@@ -382,12 +364,9 @@ public class baseJFrame extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				long idIdiomaOrgien = idiomaOrigen.getIdIdioma();
-				long idIdiomaDesti = idiomaDesti.getIdIdioma();
 				String seleccion = JOptionPane.showInputDialog(baseJFrame.this,"Nom nova categoria",JOptionPane.QUESTION_MESSAGE);
 				ICursDAO icmanagerCurs = new CursImpl();
-				cursActual = icmanagerCurs.getCursByIds(idIdiomaOrgien, idIdiomaDesti);
-				if(cursActual != null) {
+				if(cursActual != null && seleccion != null && seleccion != "") {
 					icmanagerCategoria.setNovaCategoria(seleccion, cursActual);
 					defaultListModelCategoria.addElement(seleccion);
 				}
