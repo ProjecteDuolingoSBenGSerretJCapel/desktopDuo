@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import Activitats.ATest;
+import Activitats.ATrLliure;
 import libDuo.Dao.ICategoriaDAO;
 import libDuo.Dao.ICursDAO;
 import libDuo.Dao.IExercici;
@@ -505,6 +506,7 @@ public class baseJFrame extends JFrame {
 		JButton BWriter = new JButton("");
 		BWriter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				ATrLliure.initialize();
 			}
 		});
 		BWriter.setBounds((wPanelD)+90+150, hPanelD*60,  150, 75);
