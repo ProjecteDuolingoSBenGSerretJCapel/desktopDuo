@@ -104,7 +104,7 @@ public class ATrLliure {
 		btnAfLlista.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String respostaTemp = tFRespostas.getText();
-				System.out.print(respostaTemp);
+				
 				llistaRespostesC.add(respostaTemp);
 				defaultListModel.addElement(respostaTemp);
 			}
