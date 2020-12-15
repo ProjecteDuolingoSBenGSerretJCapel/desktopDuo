@@ -14,9 +14,9 @@ import java.awt.Image;
 
 import javax.swing.JTextField;
 
-import libDuo.Dao.IExercici;
-import libDuo.implement.ExerciciImpl;
-import libDuo.model.Exercici;
+import libDuo.Dao.IExerciciTest;
+import libDuo.implement.ExerciciTestImpl;
+import libDuo.model.ExerciciTest;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -96,19 +96,19 @@ public class ATest {
 		tfRespostaCorrecta.setColumns(10);
 		tfRespostaCorrecta.setBounds(198, 436, 448, 20);
 		panell.add(tfRespostaCorrecta);
-		ArrayList<Exercici> arrayExercicis = new ArrayList<Exercici>();
+		ArrayList<ExerciciTest> arrayExercicis = new ArrayList<ExerciciTest>();
 		JButton jbGuardar = new JButton("Guardar");
 		jbGuardar.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				IExercici icmanagerJson = new ExerciciImpl();
+				IExerciciTest icmanagerJson = new ExerciciTestImpl();
 				
 				String ruta = "recursos"+File.separator+"fitcher"+File.separator+"exercicis.json";
 				File fileJson = icmanagerJson.llegirFicherJson(ruta);
 				
-				Exercici ex = icmanagerJson.setNouTipus(arrayExercicis,"test", tfEnunciat.getText(), tfR1.getText(), tfR2.getText(), tfR3.getText(), tfRespostaCorrecta.getText());
+				ExerciciTest ex = icmanagerJson.setNouTipus(arrayExercicis,"test", tfEnunciat.getText(), tfR1.getText(), tfR2.getText(), tfR3.getText(), tfRespostaCorrecta.getText());
 				
 				String jsonString = icmanagerJson.getJsonString(fileJson, arrayExercicis);
 				icmanagerJson.escriureFicherJson(fileJson, jsonString);
