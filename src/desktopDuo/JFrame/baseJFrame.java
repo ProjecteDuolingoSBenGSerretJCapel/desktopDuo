@@ -347,6 +347,7 @@ public class baseJFrame extends JFrame {
 				ICursDAO icManagerCurs = new CursImpl();
 				cursActual = icManagerCurs.getCursByNom(list.getSelectedValue().toString());
 				defaultListModelCategoria.removeAllElements();
+				defaultListModelNivell.removeAllElements();
 				btnAfegirCategoria.setEnabled(true);
 				ArrayList<Categoria> arrayCategoriaCurs = new ArrayList<Categoria>();
 				
