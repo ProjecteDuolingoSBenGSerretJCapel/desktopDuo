@@ -56,6 +56,7 @@ public class baseJFrame extends JFrame {
 	
 	private Curs cursActual;
 	private Categoria categoriaActual;
+	private Nivells nivellActual;
 	private long idCursActual;
 	
 	private JFrame afegirActivitat;
@@ -145,20 +146,20 @@ public class baseJFrame extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));	
 		
 		setContentPane(contentPane);
-		JLabel lblNewLabel = new JLabel("Cursos existents (filtrar por origen i/o desti)");
-		lblNewLabel.setBounds(43, 0, 470, 15);
+		JLabel lblIOrigen = new JLabel("Cursos existents (filtrar por origen i/o desti)");
+		lblIOrigen.setBounds(43, 0, 470, 15);
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(Color.DARK_GRAY));
 		panel.setBounds(43, 25, 718, 89);
 		contentPane.setLayout(null);
-		contentPane.add(lblNewLabel);
+		contentPane.add(lblIOrigen);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel_1 = new JLabel("Idioma de origen");
-		lblNewLabel_1.setBounds(12, 22, 163, 15);
-		panel.add(lblNewLabel_1);
+		JLabel lblIOrigen_1 = new JLabel("Idioma de origen");
+		lblIOrigen_1.setBounds(12, 22, 163, 15);
+		panel.add(lblIOrigen_1);
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(12, 53, 182, 24);
@@ -434,6 +435,7 @@ public class baseJFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				btnAfegirExcercici.setEnabled(true);
+				nivellActual = icmanagerNivell.getNivellByName(list_2.getSelectedValue().toString());
 
 			}
 
@@ -552,12 +554,24 @@ public class baseJFrame extends JFrame {
 		list.setBounds(25, (screenSize.height/100)*20, (screenSize.width/100)*30-50, (screenSize.height/100)*50);
 		panel1.add(list);
 
-		JLabel lblNewLabel = new JLabel("Idioma Origen - Desti");
-		lblNewLabel.setBounds((screenSize.width/100)*1, (screenSize.height/100)*5, 162, 15);
-		panel1.add(lblNewLabel);
+		JLabel lblIOrigen = new JLabel("Idioma Origen: "+cursActual.getIdiomaOrigen().getIdioma());
+		lblIOrigen.setBounds((screenSize.width/100)*1, (screenSize.height/100)*5, 162, 15);
+		panel1.add(lblIOrigen);
+		
+		JLabel lblIDesti = new JLabel("Idioma Desti: "+cursActual.getIdiomaDesti().getIdioma());
+		lblIDesti.setBounds((screenSize.width/100)*1, (screenSize.height/100)*5+20, 162, 15);
+		panel1.add(lblIDesti);
+		
+		JLabel lblCategoria = new JLabel("Categoria: "+categoriaActual.getTipusCategoria());
+		lblCategoria.setBounds((screenSize.width/100)*1, (screenSize.height/100)*5+40, 162, 15);
+		panel1.add(lblCategoria);
+		
+		JLabel lblNivellMostra = new JLabel("Nivell: "+nivellActual.getNomNivell());
+		lblNivellMostra.setBounds((screenSize.width/100)*1, (screenSize.height/100)*5+60, 162, 15);
+		panel1.add(lblNivellMostra);
 
 		JLabel lblNivell = new JLabel("Nivell");
-		lblNivell.setBounds((screenSize.width/100)*1,(screenSize.height/100)*15, 70, 15);
+		lblNivell.setBounds((screenSize.width/100)*1,(screenSize.height/100)*15+10, 70, 15);
 		panel1.add(lblNivell);
 		panelAA.add(panel1);
 		panelAA.add(panel2);
