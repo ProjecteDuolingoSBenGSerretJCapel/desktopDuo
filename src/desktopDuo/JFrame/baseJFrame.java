@@ -15,13 +15,13 @@ import Activitats.ATest;
 import Activitats.ATrLliure;
 import libDuo.Dao.ICategoriaDAO;
 import libDuo.Dao.ICursDAO;
-import libDuo.Dao.IExercici;
+import libDuo.Dao.IExerciciTest;
 import libDuo.Dao.IIdiomaDAO;
 
 import libDuo.Dao.INivellsDAO;
 import libDuo.implement.CategoriaImpl;
 import libDuo.implement.CursImpl;
-import libDuo.implement.ExerciciImpl;
+import libDuo.implement.ExerciciTestImpl;
 import libDuo.implement.IdiomaImpl;
 import libDuo.implement.NivellsImpl;
 
@@ -31,7 +31,7 @@ import libDuo.implement.IdiomaImpl;
 
 import libDuo.model.Categoria;
 import libDuo.model.Curs;
-import libDuo.model.Exercici;
+import libDuo.model.ExerciciTest;
 import libDuo.model.Idioma;
 import libDuo.model.Nivells;
 
