@@ -137,14 +137,14 @@ public class ATest {
 				String jsonString = icmanagerJson.getJsonString(fileJson, arrayExercicis);
 				icmanagerJson.escriureFicherJson(fileJson, jsonString);
 				
-				/*
-				try {
-					icmanagerJson.llegirJson(fileJson);
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				*/
+//				
+//				try {
+//					icmanagerJson.llegirJson(fileJson);
+//				} catch (FileNotFoundException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				
 				
 				frame.dispose();
 			}

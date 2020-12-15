@@ -25,32 +25,9 @@ public class ATrLliure {
 	private static JTextField tFRespostas;
 	private static JTextField tFFraseOrigen;
 	private static ArrayList<String> llistaRespostesC = new ArrayList<String>();
-	/**
-	 * Launch the application.
-	 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ATrLliure window = new ATrLliure();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	
-	 * Create the application.
-	 */
-	public ATrLliure() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
+	
+	
 	public static void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 580, 550);

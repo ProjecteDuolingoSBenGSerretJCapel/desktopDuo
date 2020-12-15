@@ -214,24 +214,38 @@ public class baseJFrame extends JFrame {
 		lblNivelesDeLa.setBounds(464, 126, 297, 15);
 		contentPane.add(lblNivelesDeLa);
 		
+		
 		DefaultListModel defaultListModelCursos = new DefaultListModel<>();
+		
+		JScrollPane scrollPaneCurs = new JScrollPane();
+		scrollPaneCurs.setBounds(31, 147, 160, 154);
+		contentPane.add(scrollPaneCurs);
+		
 		list = new JList();
-		list.setBounds(31, 147, 139, 154);
-		contentPane.add(list);
+		
+		scrollPaneCurs.setViewportView(list);
 		
 		list.setModel(defaultListModelCursos);
 		
 		DefaultListModel defaultListModelCategoria = new DefaultListModel<>();
+		
+		JScrollPane scrollPaneCat = new JScrollPane();
+		scrollPaneCat.setBounds(255, 147, 160, 154);
+		contentPane.add(scrollPaneCat);
+		
 		JList list_1 = new JList();
-		list_1.setBounds(255, 147, 153, 154);
-		contentPane.add(list_1);
+		scrollPaneCat.setViewportView(list_1);
 		
 		list_1.setModel(defaultListModelCategoria);
 		
+		JScrollPane scrollPaneNiv = new JScrollPane();
+		scrollPaneNiv.setBounds(499, 147, 160, 154);
+		contentPane.add(scrollPaneNiv);
+		
 		DefaultListModel defaultListModelNivell = new DefaultListModel<>();
 		JList list_2 = new JList();
-		list_2.setBounds(499, 147, 153, 154);
-		contentPane.add(list_2);
+		
+		scrollPaneNiv.setViewportView(list_2);
 		
 		list_2.setModel(defaultListModelNivell);
 		
