@@ -43,12 +43,12 @@ import java.awt.event.MouseEvent;
 
 public class baseJFrame extends JFrame {
 
-	private JPanel contentPane, panelAA;
-	private String i1,i2;
+	private JPanel panelAdministrarCurs, panelAfegirActivitat;
+	private String idiomaOr,idiomaDes;
 	private ArrayList<String> aNomIdiomesOrigen;
 	
 	private Boolean combinacio;
-	private JList list;
+	private JList listCurs;
 
 	
 	private Idioma idiomaDesti = new Idioma();
@@ -141,20 +141,20 @@ public class baseJFrame extends JFrame {
 		
 	}
 	public void administrarCurs() {
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));	
+		panelAdministrarCurs = new JPanel();
+		panelAdministrarCurs.setBorder(new EmptyBorder(5, 5, 5, 5));
+		panelAdministrarCurs.setLayout(new BorderLayout(0, 0));	
 		
-		setContentPane(contentPane);
+		setContentPane(panelAdministrarCurs);
 		JLabel lblIOrigen = new JLabel("Cursos existents (filtrar por origen i/o desti)");
 		lblIOrigen.setBounds(43, 0, 470, 15);
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(Color.DARK_GRAY));
 		panel.setBounds(43, 25, 718, 89);
-		contentPane.setLayout(null);
-		contentPane.add(lblIOrigen);
-		contentPane.add(panel);
+		panelAdministrarCurs.setLayout(null);
+		panelAdministrarCurs.add(lblIOrigen);
+		panelAdministrarCurs.add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblIOrigen_1 = new JLabel("Idioma de origen");
@@ -205,64 +205,64 @@ public class baseJFrame extends JFrame {
 		
 		JLabel lblCursos = new JLabel("Cursos");
 		lblCursos.setBounds(43, 126, 70, 15);
-		contentPane.add(lblCursos);
+		panelAdministrarCurs.add(lblCursos);
 		
 		JLabel lblCategoriasDelCurs = new JLabel("Categorias del curs sel·leccionat");
 		lblCategoriasDelCurs.setBounds(211, 126, 241, 15);
-		contentPane.add(lblCategoriasDelCurs);
+		panelAdministrarCurs.add(lblCategoriasDelCurs);
 		
 		JLabel lblNivelesDeLa = new JLabel("Nivells de la categoria sel·leccionada");
 		lblNivelesDeLa.setBounds(464, 126, 297, 15);
-		contentPane.add(lblNivelesDeLa);
+		panelAdministrarCurs.add(lblNivelesDeLa);
 		
 		
 		DefaultListModel defaultListModelCursos = new DefaultListModel<>();
 		
 		JScrollPane scrollPaneCurs = new JScrollPane();
 		scrollPaneCurs.setBounds(31, 147, 160, 154);
-		contentPane.add(scrollPaneCurs);
+		panelAdministrarCurs.add(scrollPaneCurs);
 		
-		list = new JList();
+		listCurs = new JList();
 		
-		scrollPaneCurs.setViewportView(list);
+		scrollPaneCurs.setViewportView(listCurs);
 		
-		list.setModel(defaultListModelCursos);
+		listCurs.setModel(defaultListModelCursos);
 		
 		DefaultListModel defaultListModelCategoria = new DefaultListModel<>();
 		
 		JScrollPane scrollPaneCat = new JScrollPane();
 		scrollPaneCat.setBounds(255, 147, 160, 154);
-		contentPane.add(scrollPaneCat);
+		panelAdministrarCurs.add(scrollPaneCat);
 		
-		JList list_1 = new JList();
-		scrollPaneCat.setViewportView(list_1);
+		JList listCategoria = new JList();
+		scrollPaneCat.setViewportView(listCategoria);
 		
-		list_1.setModel(defaultListModelCategoria);
+		listCategoria.setModel(defaultListModelCategoria);
 		
 		JScrollPane scrollPaneNiv = new JScrollPane();
 		scrollPaneNiv.setBounds(499, 147, 160, 154);
-		contentPane.add(scrollPaneNiv);
+		panelAdministrarCurs.add(scrollPaneNiv);
 		
 		DefaultListModel defaultListModelNivell = new DefaultListModel<>();
-		JList list_2 = new JList();
+		JList listNivell = new JList();
 		
-		scrollPaneNiv.setViewportView(list_2);
+		scrollPaneNiv.setViewportView(listNivell);
 		
-		list_2.setModel(defaultListModelNivell);
+		listNivell.setModel(defaultListModelNivell);
 		
 		JButton btnAfegirCategoria = new JButton("Afegir categoria");
 		btnAfegirCategoria.setBounds(255, 330, 153, 15);
-		contentPane.add(btnAfegirCategoria);
+		panelAdministrarCurs.add(btnAfegirCategoria);
 		btnAfegirCategoria.setEnabled(false);
 		
 		JButton btnAfegirNivell = new JButton("Afegir nivell");
 		btnAfegirNivell.setBounds(499, 330, 117, 15);
-		contentPane.add(btnAfegirNivell);
+		panelAdministrarCurs.add(btnAfegirNivell);
 		btnAfegirNivell.setEnabled(false);
 		
 		JButton btnAfegirExcercici = new JButton("AFEGIR PREGUNTA");
 		btnAfegirExcercici.setBounds(34, 357, 699, 17);
-		contentPane.add(btnAfegirExcercici);
+		panelAdministrarCurs.add(btnAfegirExcercici);
 		btnAfegirExcercici.setEnabled(false);
 		
 		btnAfegirExcercici.addActionListener(new ActionListener() {
@@ -276,18 +276,18 @@ public class baseJFrame extends JFrame {
 		
 		JButton btnNewButton_1 = new JButton("VISUALITZAR PREGUNTES");
 		btnNewButton_1.setBounds(33, 386, 700, 15);
-		contentPane.add(btnNewButton_1);
+		panelAdministrarCurs.add(btnNewButton_1);
 		
 		
 		btnAFiltro.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				i1=comboBox.getSelectedItem().toString();
-				i2=comboBox2.getSelectedItem().toString();
+				idiomaOr=comboBox.getSelectedItem().toString();
+				idiomaDes=comboBox2.getSelectedItem().toString();
 				IIdiomaDAO icmanagerIdioma = new IdiomaImpl();
-				idiomaDesti = icmanagerIdioma.getIdiomaByName(i2);
-				idiomaOrigen = icmanagerIdioma.getIdiomaByName(i1);
+				idiomaDesti = icmanagerIdioma.getIdiomaByName(idiomaDes);
+				idiomaOrigen = icmanagerIdioma.getIdiomaByName(idiomaOr);
 				
 				defaultListModelCursos.removeAllElements();
 				defaultListModelCategoria.removeAllElements();
@@ -303,26 +303,26 @@ public class baseJFrame extends JFrame {
 				
 				arrayListTotsElsCursos = icmanagerCurs.getAllCursos();
 				//arrayListTotsElsCursos = recurllirTotsElsCursos(icmanagerCurs, arrayListTotsElsCursos);
-				if(!i1.equals(" ") && !i2.equals(" ")) {
-					boolean combinacio = recullirIdiomaDestiIdiomaOrigen(i1, i2, arrayListTotsElsCursos);
+				if(!idiomaOr.equals(" ") && !idiomaDes.equals(" ")) {
+					boolean combinacio = recullirIdiomaDestiIdiomaOrigen(idiomaOr, idiomaDes, arrayListTotsElsCursos);
 					if(combinacio) {
-						defaultListModelCursos.addElement(i1+" - "+i2);
+						defaultListModelCursos.addElement(idiomaOr+" - "+idiomaDes);
 					}else {
 						btnCCurs.setEnabled(true);
 						
 						
 					}
-				}else if(!i1.equals(" ") && i2.equals(" ")) {
+				}else if(!idiomaOr.equals(" ") && idiomaDes.equals(" ")) {
 					for (int i = 0; i < arrayListTotsElsCursos.size(); i++) {
-						if(arrayListTotsElsCursos.get(i).getIdiomaOrigen().getIdioma().equalsIgnoreCase(i1)) {
+						if(arrayListTotsElsCursos.get(i).getIdiomaOrigen().getIdioma().equalsIgnoreCase(idiomaOr)) {
 							defaultListModelCursos.addElement(arrayListTotsElsCursos.get(i).getIdiomaOrigen().getIdioma()+
 									" - "+arrayListTotsElsCursos.get(i).getIdiomaDesti().getIdioma());
 							
 						}
 					}
-				}else if(i1.equals(" ") && !i2.equals(" ")) {
+				}else if(idiomaOr.equals(" ") && !idiomaDes.equals(" ")) {
 					for (int i = 0; i < arrayListTotsElsCursos.size(); i++) {
-						if(arrayListTotsElsCursos.get(i).getIdiomaDesti().getIdioma().equalsIgnoreCase(i2)) {
+						if(arrayListTotsElsCursos.get(i).getIdiomaDesti().getIdioma().equalsIgnoreCase(idiomaDes)) {
 							defaultListModelCursos.addElement(arrayListTotsElsCursos.get(i).getIdiomaOrigen().getIdioma()+
 									" - "+arrayListTotsElsCursos.get(i).getIdiomaDesti().getIdioma());
 							
@@ -340,13 +340,13 @@ public class baseJFrame extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				ICursDAO icmanagerCurs = new CursImpl();
 				IIdiomaDAO icmanagerIdioma = new IdiomaImpl();
-				defaultListModelCursos.addElement(i1+" - "+i2);
+				defaultListModelCursos.addElement(idiomaOr+" - "+idiomaDes);
 				Curs curs = new Curs();
-				idiomaDesti = icmanagerIdioma.getIdiomaByName(i2);
-				idiomaOrigen = icmanagerIdioma.getIdiomaByName(i1);
+				idiomaDesti = icmanagerIdioma.getIdiomaByName(idiomaDes);
+				idiomaOrigen = icmanagerIdioma.getIdiomaByName(idiomaOr);
 				
 				icmanagerCurs.setNewCurs(idiomaOrigen,idiomaDesti, curs);
-				cursActual = icmanagerCurs.getCursByNom(i1+" - "+i2);
+				cursActual = icmanagerCurs.getCursByNom(idiomaOr+" - "+idiomaDes);
 				System.out.println(cursActual.getNomCurs());
 				btnCCurs.setEnabled(false);
 			}
@@ -354,13 +354,13 @@ public class baseJFrame extends JFrame {
 		
 		//Afegir Categoria
 		ICategoriaDAO icmanagerCategoria = new CategoriaImpl();
-		list.addMouseListener(new MouseAdapter() {
+		listCurs.addMouseListener(new MouseAdapter() {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
 				ICursDAO icManagerCurs = new CursImpl();
-				cursActual = icManagerCurs.getCursByNom(list.getSelectedValue().toString());
+				cursActual = icManagerCurs.getCursByNom(listCurs.getSelectedValue().toString());
 				defaultListModelCategoria.removeAllElements();
 				defaultListModelNivell.removeAllElements();
 				btnAfegirCategoria.setEnabled(true);
@@ -403,13 +403,13 @@ public class baseJFrame extends JFrame {
 		
 		INivellsDAO icmanagerNivell = new NivellsImpl();
 		
-		list_1.addMouseListener(new MouseAdapter() {
+		listCategoria.addMouseListener(new MouseAdapter() {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
 				
-				categoriaActual = icmanagerCategoria.getCategoriaByName(list_1.getSelectedValue().toString());
+				categoriaActual = icmanagerCategoria.getCategoriaByName(listCategoria.getSelectedValue().toString());
 				defaultListModelNivell.removeAllElements();
 				btnAfegirNivell.setEnabled(true);
 				ArrayList<Nivells> arrayCategoriaNivells = new ArrayList<Nivells>();
@@ -445,11 +445,11 @@ public class baseJFrame extends JFrame {
 			}
 		});
 
-		list_2.addMouseListener(new MouseAdapter() {
+		listNivell.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				btnAfegirExcercici.setEnabled(true);
-				nivellActual = icmanagerNivell.getNivellByName(list_2.getSelectedValue().toString());
+				nivellActual = icmanagerNivell.getNivellByName(listNivell.getSelectedValue().toString());
 
 			}
 
@@ -466,11 +466,11 @@ public class baseJFrame extends JFrame {
 	
 	
 	
-	public boolean recullirIdiomaDestiIdiomaOrigen(String i1, String i2, ArrayList<Curs> arrayList) {
+	public boolean recullirIdiomaDestiIdiomaOrigen(String idiomaOr, String idiomaDes, ArrayList<Curs> arrayList) {
 		for (int i = 0; i < arrayList.size(); i++) {
 			System.out.println(arrayList.get(i));
-			if(arrayList.get(i).getIdiomaOrigen().getIdioma().equalsIgnoreCase(i1) 
-					&& arrayList.get(i).getIdiomaDesti().getIdioma().equalsIgnoreCase(i2)) {
+			if(arrayList.get(i).getIdiomaOrigen().getIdioma().equalsIgnoreCase(idiomaOr) 
+					&& arrayList.get(i).getIdiomaDesti().getIdioma().equalsIgnoreCase(idiomaDes)) {
 				return true;
 			}
 			
@@ -480,28 +480,28 @@ public class baseJFrame extends JFrame {
 	}
 	public void afegirActivitat() {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		panelAA = new JPanel();
-		panelAA.setBounds(0, 0,screenSize.width, screenSize.height);
-		panelAA.setLayout(new BorderLayout(0, 0));	
+		panelAfegirActivitat = new JPanel();
+		panelAfegirActivitat.setBounds(0, 0,screenSize.width, screenSize.height);
+		panelAfegirActivitat.setLayout(new BorderLayout(0, 0));	
 		
-		JPanel panel1 = new JPanel();
-		panel1.setBorder(new LineBorder(Color.BLACK));
-		panel1.setBounds(0, 0, (panelAA.getWidth()/100)*30, panelAA.getHeight());
+		JPanel panelEsquerra = new JPanel();
+		panelEsquerra.setBorder(new LineBorder(Color.BLACK));
+		panelEsquerra.setBounds(0, 0, (panelAfegirActivitat.getWidth()/100)*30, panelAfegirActivitat.getHeight());
 		
 
-		JPanel panel2 = new JPanel();
-		panel2.setBorder(new LineBorder(Color.BLACK));
-		panel2.setBounds((panelAA.getWidth()/100)*30, 0,  (panelAA.getWidth()/100)*70, panelAA.getHeight());
+		JPanel panelDreta = new JPanel();
+		panelDreta.setBorder(new LineBorder(Color.BLACK));
+		panelDreta.setBounds((panelAfegirActivitat.getWidth()/100)*30, 0,  (panelAfegirActivitat.getWidth()/100)*70, panelAfegirActivitat.getHeight());
 		
-		int wPanelD=(int)(panelAA.getWidth()/100)*30;
+		int wPanelD=(int)(panelAfegirActivitat.getWidth()/100)*30;
 		
 		
-		int hPanelD=(int)(panel2.getHeight()/100);
+		int hPanelD=(int)(panelDreta.getHeight()/100);
 		
 
 
 		JButton Btest = new JButton("");
-		Btest.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"TestIMG.PNG", Btest));
+		Btest.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"TestIMG.PNG"));
 		Btest.setBounds((wPanelD)+45, hPanelD*20, 150, 75);
 		Btest.addActionListener(new ActionListener() {
 			
@@ -511,95 +511,95 @@ public class baseJFrame extends JFrame {
 			}
 		});
 		
-		panel2.add(Btest);
+		panelDreta.add(Btest);
 
 
-		panel2.setLayout(null);
+		panelDreta.setLayout(null);
 
 
-		JButton Bcomplet = new JButton("");
-		Bcomplet.setBounds((wPanelD)+90+150, hPanelD*20,  150, 75);
-		Bcomplet.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"Completar1IMG.png", Bcomplet));
-		panel2.add(Bcomplet);
+		JButton BCompletar = new JButton("");
+		BCompletar.setBounds((wPanelD)+90+150, hPanelD*20,  150, 75);
+		BCompletar.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"Completar1IMG.png"));
+		panelDreta.add(BCompletar);
 
-		JButton Blisten = new JButton("");
-		Blisten.setBounds((wPanelD)+20, hPanelD*40,  150, 75);
-		Blisten.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"ListeningIMG.png", Blisten));
-		panel2.add(Blisten);
+		JButton BEscolta = new JButton("");
+		BEscolta.setBounds((wPanelD)+20, hPanelD*40,  150, 75);
+		BEscolta.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"ListeningIMG.png"));
+		panelDreta.add(BEscolta);
 
-		JButton Bordenar = new JButton("");
-		Bordenar.setBounds((wPanelD)+50+150, hPanelD*40,  150, 75);
-		Bordenar.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"OrderIMG.png", Bordenar));
-		panel2.add(Bordenar);
+		JButton BOrdenar = new JButton("");
+		BOrdenar.setBounds((wPanelD)+50+150, hPanelD*40,  150, 75);
+		BOrdenar.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"OrderIMG.png"));
+		panelDreta.add(BOrdenar);
 
-		JButton BOrdenList = new JButton("");
-		BOrdenList.addActionListener(new ActionListener() {
+		JButton BOrdenaEscolta = new JButton("");
+		BOrdenaEscolta.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		BOrdenList.setBounds((wPanelD)+90+150*2, hPanelD*40,  150, 75);
-		BOrdenList.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"Order-ListeningIMG.png", BOrdenList ));
-		panel2.add(BOrdenList);
+		BOrdenaEscolta.setBounds((wPanelD)+90+150*2, hPanelD*40,  150, 75);
+		BOrdenaEscolta.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"Order-ListeningIMG.png" ));
+		panelDreta.add(BOrdenaEscolta);
 
-		JButton BRelation = new JButton("");
+		JButton BRelaciona = new JButton("");
 
-		BRelation.addActionListener(new ActionListener() {
+		BRelaciona.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		BRelation.setBounds((wPanelD)+45, hPanelD*60 ,  150, 75);
-		BRelation.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"RelaciionIMG.png", BRelation));
-		panel2.add(BRelation);
+		BRelaciona.setBounds((wPanelD)+45, hPanelD*60 ,  150, 75);
+		BRelaciona.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"RelaciionIMG.png"));
+		panelDreta.add(BRelaciona);
 
-		JButton BWriter = new JButton("");
-		BWriter.addActionListener(new ActionListener() {
+		JButton BTradLliurer = new JButton("");
+		BTradLliurer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ATrLliure.initialize();
 			}
 		});
-		BWriter.setBounds((wPanelD)+90+150, hPanelD*60,  150, 75);
-		BWriter.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"WriteIMG.png", BWriter));
-		panel2.add(BWriter);
-		panel1.setLayout(null);
+		BTradLliurer.setBounds((wPanelD)+90+150, hPanelD*60,  150, 75);
+		BTradLliurer.setIcon(setIcono("recursos"+File.separator+"imatgesButtons"+File.separator+"WriteIMG.png"));
+		panelDreta.add(BTradLliurer);
+		panelEsquerra.setLayout(null);
 
-		JList list = new JList();
-		list.setBorder(new LineBorder(Color.GRAY));
-		list.setBounds(25, (screenSize.height/100)*20, (screenSize.width/100)*30-50, (screenSize.height/100)*50);
-		panel1.add(list);
+		JList listExercicis = new JList();
+		listExercicis.setBorder(new LineBorder(Color.GRAY));
+		listExercicis.setBounds(25, (screenSize.height/100)*20, (screenSize.width/100)*30-50, (screenSize.height/100)*50);
+		panelEsquerra.add(listExercicis);
 
 		JLabel lblIOrigen = new JLabel("Idioma Origen: "+cursActual.getIdiomaOrigen().getIdioma());
 		lblIOrigen.setBounds((screenSize.width/100)*1, (screenSize.height/100)*5, 202, 15);
-		panel1.add(lblIOrigen);
+		panelEsquerra.add(lblIOrigen);
 		
 		JLabel lblIDesti = new JLabel("Idioma Desti: "+cursActual.getIdiomaDesti().getIdioma());
 		lblIDesti.setBounds((screenSize.width/100)*1, (screenSize.height/100)*5+20, 202, 15);
-		panel1.add(lblIDesti);
+		panelEsquerra.add(lblIDesti);
 		
 		JLabel lblCategoria = new JLabel("Categoria: "+categoriaActual.getTipusCategoria());
 		lblCategoria.setBounds((screenSize.width/100)*1, (screenSize.height/100)*5+40, 202, 15);
-		panel1.add(lblCategoria);
+		panelEsquerra.add(lblCategoria);
 		
 		JLabel lblNivellMostra = new JLabel("Nivell: "+nivellActual.getNomNivell());
 		lblNivellMostra.setBounds((screenSize.width/100)*1, (screenSize.height/100)*5+60, 202, 15);
-		panel1.add(lblNivellMostra);
+		panelEsquerra.add(lblNivellMostra);
 
 		JLabel lblNivell = new JLabel("Nivell");
 		lblNivell.setBounds((screenSize.width/100)*1,(screenSize.height/100)*15+10, 70, 15);
-		panel1.add(lblNivell);
-		panelAA.add(panel1);
-		panelAA.add(panel2);
-		panel1.setVisible(true);
-		panel2.setVisible(true);
-		panelAA.setVisible(true);
-		setContentPane(panelAA);
+		panelEsquerra.add(lblNivell);
+		panelAfegirActivitat.add(panelEsquerra);
+		panelAfegirActivitat.add(panelDreta);
+		panelEsquerra.setVisible(true);
+		panelDreta.setVisible(true);
+		panelAfegirActivitat.setVisible(true);
+		setContentPane(panelAfegirActivitat);
 
 	}
-	public Icon setIcono(String url , JButton boton) {
+	public Icon setIcono(String url ) {
 
-		ImageIcon imagen = new ImageIcon(url);
-		ImageIcon icono= new ImageIcon(imagen.getImage().getScaledInstance(150, 75, Image.SCALE_DEFAULT));
-		return icono;
+		ImageIcon imatge = new ImageIcon(url);
+		ImageIcon icona= new ImageIcon(imatge.getImage().getScaledInstance(150, 75, Image.SCALE_DEFAULT));
+		return icona;
 	}
 	
 	
