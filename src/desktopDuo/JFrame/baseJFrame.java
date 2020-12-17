@@ -274,10 +274,18 @@ public class baseJFrame extends JFrame {
 			}
 		});
 		
-		JButton btnNewButton_1 = new JButton("VISUALITZAR PREGUNTES");
-		btnNewButton_1.setBounds(33, 386, 700, 15);
-		panelAdministrarCurs.add(btnNewButton_1);
-		
+		JButton btnVisualitzarPregunta = new JButton("VISUALITZAR PREGUNTES");
+		btnVisualitzarPregunta.setBounds(33, 386, 700, 15);
+		panelAdministrarCurs.add(btnVisualitzarPregunta);
+		btnVisualitzarPregunta.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VisualitzaExercici.initialize(nivellActual);
+				
+			}
+		});
+		btnVisualitzarPregunta.setEnabled(false);
 		btnAFiltro.addActionListener(new ActionListener() {
 
 			@Override
@@ -295,7 +303,7 @@ public class baseJFrame extends JFrame {
 				btnAfegirNivell.setEnabled(false);
 				btnAfegirCategoria.setEnabled(false);
 				btnCCurs.setEnabled(false);
-
+				btnVisualitzarPregunta.setEnabled(false);
 				ICursDAO icmanagerCurs = new CursImpl();
 
 				ArrayList<Curs> arrayListTotsElsCursos = new ArrayList<Curs>();
@@ -448,6 +456,7 @@ public class baseJFrame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				btnAfegirExcercici.setEnabled(true);
+				btnVisualitzarPregunta.setEnabled(true);
 				nivellActual = icmanagerNivell.getNivellByName(listNivell.getSelectedValue().toString());
 
 			}

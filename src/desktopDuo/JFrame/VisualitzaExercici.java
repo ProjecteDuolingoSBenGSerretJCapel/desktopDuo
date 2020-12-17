@@ -10,46 +10,46 @@ import java.awt.Dimension;
 
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+
+import libDuo.Dao.IExercicisDAO;
+import libDuo.Dao.INivellsDAO;
+import libDuo.implement.ExercicisImpl;
+import libDuo.implement.NivellsImpl;
+import libDuo.model.Exercicis;
+import libDuo.model.Nivells;
+
 import javax.swing.JButton;
 import java.awt.Scrollbar;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class VisualitzaExercici {
 
-	private JFrame frame;
+	private static JFrame frame;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VisualitzaExercici window = new VisualitzaExercici();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the application.
 	 */
-	public VisualitzaExercici() {
-		initialize();
-	}
+	
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	static void initialize(Nivells nivell) {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 600, 500);
 		
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		IExercicisDAO iCManagerExercici = new ExercicisImpl();
+		
+		ArrayList <Exercicis> llistaExercicis= (ArrayList<Exercicis>) iCManagerExercici.getAllExercicisByNivell(nivell);  
 		
 		
 		
@@ -61,31 +61,46 @@ public class VisualitzaExercici {
 		
 		JPanel panel = new JPanel();
 		
-		panel.setPreferredSize(new Dimension (460,45*20));
+		panel.setPreferredSize(new Dimension (460,45*llistaExercicis.size()));
 		panel.setLayout(null);
 		scrollPane.setViewportView(panel);
-			
-		creadorBotons(panel);
+		creadorBotons(panel, llistaExercicis);
 		
 		
+		frame.setVisible(true);
 	}
-	public void creadorBotons(JPanel panel) {
+	public static void creadorBotons(JPanel panel, ArrayList<Exercicis> llistaExercicis) {
 		int sum=0;
 		ArrayList<JButton> botons= new ArrayList <JButton>();
 		
 		
 		
-		for(int x=0; x<20;x++) {
+		for(int x=0; x<llistaExercicis.size();x++) {
+			
+			
 			String enunciat=("Enunciat exercici "+(x+1)+" ");
 			String tipus="Tipus";
-			JButton btnNewButton = new JButton(enunciat+tipus);
+			JButton btnTemp = new JButton(enunciat+tipus);
 			
-			btnNewButton.setBounds(0 , sum,600, 45);
+			btnTemp.setBounds(0 , sum,600, 45);
+			
+			botons.add(btnTemp);
 			sum+=45;
-			botons.add(btnNewButton);
+			
 		}
 		for (JButton jBotons : botons) {
+		
+			
+			jBotons.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					
+				}
+			});
 			panel.add(jBotons);
 		}
+		
 	}
 }
