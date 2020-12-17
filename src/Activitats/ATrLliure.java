@@ -11,11 +11,21 @@ import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import libDuo.Dao.IExerciciTest;
+import libDuo.Dao.IExerciciTraduccio;
+import libDuo.Dao.IExercicisDAO;
+import libDuo.implement.ExerciciTestImpl;
+import libDuo.implement.ExercicisImpl;
+import libDuo.implement.ExercicisTraduccioImpl;
 import libDuo.model.Curs;
+import libDuo.model.ExerciciTest;
+import libDuo.model.ExerciciTraduccio;
+import libDuo.model.Nivells;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
@@ -28,7 +38,7 @@ public class ATrLliure {
 	
 	
 	
-	public static void initialize() {
+	public static void initialize(Nivells nivell) {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 580, 550);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -53,6 +63,8 @@ public class ATrLliure {
 		panel.add(tFRespostas);
 		tFRespostas.setColumns(10);
 		
+		ArrayList<ExerciciTraduccio> arrayExercicis = new ArrayList<ExerciciTraduccio>();
+		
 		JButton btnGuardarEx = new JButton("Guardar exercici");
 		btnGuardarEx.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -66,7 +78,20 @@ public class ATrLliure {
 					JOptionPane.showMessageDialog(frame, "No hi ha cap resposta correcta");
 				}else {
 					
+					IExerciciTraduccio icmanagerJson = new ExercicisTraduccioImpl();
 					
+					String ruta = "recursos"+File.separator+"fitcher"+File.separator+"exercicis.json";
+					File fileJson = icmanagerJson.llegirFicherJson(ruta);
+
+					ExerciciTraduccio ex = icmanagerJson.setNouTipus(arrayExercicis, "Traduccio lliure", tFFraseOrigen.getText(), llistaRespostesC );  
+					
+					String jsonString = icmanagerJson.getJsonString(fileJson, arrayExercicis);
+					icmanagerJson.escriureFicherJson(fileJson, jsonString);
+					
+					
+					IExercicisDAO iCManagerExercici = new ExercicisImpl();
+					
+					iCManagerExercici.setNouExercici(nivell, jsonString);
 					
 					frame.dispose();
 				}

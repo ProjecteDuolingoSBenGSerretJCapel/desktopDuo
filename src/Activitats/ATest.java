@@ -15,8 +15,11 @@ import java.awt.Image;
 import javax.swing.JTextField;
 
 import libDuo.Dao.IExerciciTest;
+import libDuo.Dao.IExercicisDAO;
 import libDuo.implement.ExerciciTestImpl;
+import libDuo.implement.ExercicisImpl;
 import libDuo.model.ExerciciTest;
+import libDuo.model.Nivells;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -33,7 +36,7 @@ public class ATest {
 	private static JTextField tfRespostaCorrecta;
 
 	
-	public static void initialize() {
+	public static void initialize(Nivells nivell) {
 		
 		frame = new JFrame();
 		frame.setBounds( 10, 10 ,700, 600);
@@ -113,7 +116,15 @@ public class ATest {
 				String jsonString = icmanagerJson.getJsonString(fileJson, arrayExercicis);
 				icmanagerJson.escriureFicherJson(fileJson, jsonString);
 				
-//				
+				System.out.println("HOLAAAAAAA  "+ jsonString);
+				
+				IExercicisDAO iCManagerExercici = new ExercicisImpl();
+				
+				iCManagerExercici.setNouExercici(nivell, jsonString);
+				
+				
+				
+				
 //				try {
 //					icmanagerJson.llegirJson(fileJson);
 //				} catch (FileNotFoundException e) {
